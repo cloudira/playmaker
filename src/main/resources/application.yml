@@ -1,0 +1,33 @@
+server:
+  port: 8888
+
+management:
+  context-path: /admin
+  
+logging:
+  level:
+    com.netflix.discovery: 'OFF'
+    org.springframework.cloud: 'DEBUG'
+    
+eureka:
+  instance:
+    leaseRenewalIntervalInSeconds: 10
+    statusPageUrlPath: /admin/info
+    healthCheckUrlPath: /admin/health
+    metadataMap:
+      password: ${security.user.password}
+  client:
+    serviceUrl:
+      defaultZone: ${vcap.services.${PREFIX:}eureka.credentials.uri:http://user:password@localhost:8761}/eureka/
+
+---
+spring:
+  profiles: cloud
+eureka:
+  instance:
+    hostname: ${PREFIX:}${spring.application.name}.${application.domain:cfapps.io}
+    nonSecurePort: 80
+# no JCE in PWS
+security:
+  user:
+    password: password

@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: playmaker
+  cloud:
+    config:
+      enabled: false
+
+    
