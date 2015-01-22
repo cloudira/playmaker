@@ -1,17 +1,17 @@
 package org.cloudira.playmaker;
 
-import org.cloudira.playmaker.domain.ServiceDetils;
+import org.cloudira.playmaker.domain.ServiceDetails;
 import org.cloudira.playmaker.domain.ServiceProfile;
-import org.cloudira.playmaker.repository.ServiceRepository;
+import org.cloudira.playmaker.repository.ServiceDetailsRepository;
 import org.springframework.cloud.config.Environment;
 import org.springframework.cloud.config.PropertySource;
 import org.springframework.cloud.config.server.EnvironmentRepository;
 
 public class PlayMakerEnvironmentRepository implements EnvironmentRepository {
 	
-	private ServiceRepository serviceRepository;
+	private ServiceDetailsRepository serviceRepository;
 	
-	public PlayMakerEnvironmentRepository(ServiceRepository serviceRepository) {
+	public PlayMakerEnvironmentRepository(ServiceDetailsRepository serviceRepository) {
 		this.serviceRepository = serviceRepository;
 	}
 	
@@ -19,7 +19,7 @@ public class PlayMakerEnvironmentRepository implements EnvironmentRepository {
 	public Environment findOne(String application, String profile, String label) {
 		Environment env = new Environment(profile, "");
 		
-		ServiceDetils service = serviceRepository.findByName(application);
+		ServiceDetails service = serviceRepository.findByName(application);
 		if (service != null) {
 			for (ServiceProfile p : service.getProfiles()) {
 				if (p.getProfile().getName().equals(profile)) {

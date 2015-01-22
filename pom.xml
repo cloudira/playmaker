@@ -10,6 +10,12 @@
 	<artifactId>playmaker</artifactId>
 	<name>PlayMaker</name>
 	<description>Cloudira PlayMaker</description>
+	
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<start-class>org.cloudira.playmaker.PlayMakerApplication</start-class>
+		<java.version>1.7</java.version>
+	</properties>
 
 	<parent>
 		<groupId>org.springframework.cloud</groupId>
@@ -59,21 +65,11 @@
 		</dependency>
 	</dependencies>
 
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<start-class>demo.ConfigServerApplication</start-class>
-		<java.version>1.7</java.version>
-	</properties>
-
 	<build>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
-			<plugin>
-				<groupId>pl.project13.maven</groupId>
-				<artifactId>git-commit-id-plugin</artifactId>
 			</plugin>
 	        <plugin>
 		      <!--skip deploy (this is just a test module) -->

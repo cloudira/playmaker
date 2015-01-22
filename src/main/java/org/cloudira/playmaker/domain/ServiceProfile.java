@@ -27,7 +27,7 @@ public class ServiceProfile {
 	
 	@ManyToOne
 	@JoinColumn(name = "service_id")
-	private ServiceDetils service;
+	private ServiceDetails service;
 	
 	@ManyToOne
 	@JoinColumn(name = "profile_id")
@@ -47,11 +47,11 @@ public class ServiceProfile {
 		this.id = id;
 	}
 
-	public ServiceDetils getService() {
+	public ServiceDetails getService() {
 		return service;
 	}
 
-	public void setService(ServiceDetils service) {
+	public void setService(ServiceDetails service) {
 		this.service = service;
 	}
 

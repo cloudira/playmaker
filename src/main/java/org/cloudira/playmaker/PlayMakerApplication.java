@@ -1,6 +1,6 @@
 package org.cloudira.playmaker;
 
-import org.cloudira.playmaker.repository.ServiceRepository;
+import org.cloudira.playmaker.repository.ServiceDetailsRepository;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
@@ -14,7 +14,7 @@ import org.springframework.context.annotation.Bean;
 public class PlayMakerApplication {
 	
 	@Bean(name = "EnvironmentRepository")
-	public EnvironmentRepository environmentRepository(ServiceRepository serviceRepository) {
+	public EnvironmentRepository environmentRepository(ServiceDetailsRepository serviceRepository) {
 		return new PlayMakerEnvironmentRepository(serviceRepository);
 	}
 

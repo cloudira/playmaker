@@ -21,7 +21,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "service")
-public class ServiceDetils {
+public class ServiceDetails {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -102,7 +102,7 @@ public class ServiceDetils {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		ServiceDetils other = (ServiceDetils) obj;
+		ServiceDetails other = (ServiceDetails) obj;
 		if (description == null) {
 			if (other.description != null)
 				return false;
