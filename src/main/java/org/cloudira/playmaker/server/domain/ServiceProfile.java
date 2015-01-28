@@ -1,11 +1,8 @@
-package org.cloudira.playmaker.domain;
+package org.cloudira.playmaker.server.domain;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
@@ -15,33 +12,32 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.MapKeyColumn;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "service")
-public class ServiceDetails {
+@Table(name = "service_profile")
+public class ServiceProfile {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "service_id")
+	@Column(name = "service_profile_id")
 	private int id;
 	
-	@Column(name = "name")
-	private String name;
+	@ManyToOne
+	@JoinColumn(name = "service_id")
+	private Service service;
 	
-	@Column(name = "description")
-	private String description;
+	@ManyToOne
+	@JoinColumn(name = "profile_id")
+	private Profile profile;
 	
 	@ElementCollection(fetch = FetchType.EAGER)
 	@MapKeyColumn(name = "property")
 	@Column(name = "value")
-	@CollectionTable(name = "service_property", joinColumns = @JoinColumn(name = "service_id"))
+	@CollectionTable(name = "service_profile_property", joinColumns = @JoinColumn(name = "service_profile_id"))
 	private Map<String, String> properties = new HashMap<String, String>();
-	
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "service")
-	private List<ServiceProfile> profiles = new ArrayList<ServiceProfile>();
 
 	public int getId() {
 		return id;
@@ -51,20 +47,20 @@ public class ServiceDetails {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public Service getService() {
+		return service;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setService(Service service) {
+		this.service = service;
 	}
 
-	public String getDescription() {
-		return description;
+	public Profile getProfile() {
+		return profile;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	public void setProfile(Profile profile) {
+		this.profile = profile;
 	}
 	
 	public Map<String, String> getProperties() {
@@ -74,23 +70,15 @@ public class ServiceDetails {
 	public void setProperties(Map<String, String> properties) {
 		this.properties = properties;
 	}
-	
-	public List<ServiceProfile> getProfiles() {
-		return profiles;
-	}
-	
-	public void setProfiles(List<ServiceProfile> profiles) {
-		this.profiles = profiles;
-	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result
-				+ ((description == null) ? 0 : description.hashCode());
+				+ ((service == null) ? 0 : service.hashCode());
 		result = prime * result + id;
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + ((profile == null) ? 0 : profile.hashCode());
 		return result;
 	}
 
@@ -102,25 +90,25 @@ public class ServiceDetails {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		ServiceDetails other = (ServiceDetails) obj;
-		if (description == null) {
-			if (other.description != null)
+		ServiceProfile other = (ServiceProfile) obj;
+		if (service == null) {
+			if (other.service != null)
 				return false;
-		} else if (!description.equals(other.description))
+		} else if (!service.equals(other.service))
 			return false;
 		if (id != other.id)
 			return false;
-		if (name == null) {
-			if (other.name != null)
+		if (profile == null) {
+			if (other.profile != null)
 				return false;
-		} else if (!name.equals(other.name))
+		} else if (!profile.equals(other.profile))
 			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "Service [id=" + id + ", name=" + name + ", description=" + description + "]";
+		return "ServiceProfile [id=" + id + ", service=" + service + ", profile=" + profile + "]";
 	}
 	
 }

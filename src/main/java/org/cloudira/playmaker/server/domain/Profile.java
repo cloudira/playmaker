@@ -1,4 +1,4 @@
-package org.cloudira.playmaker.domain;
+package org.cloudira.playmaker.server.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

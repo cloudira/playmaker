@@ -1,6 +1,6 @@
-package org.cloudira.playmaker.repository;
+package org.cloudira.playmaker.server.repository;
 
-import org.cloudira.playmaker.domain.Profile;
+import org.cloudira.playmaker.server.domain.Profile;
 import org.springframework.data.repository.CrudRepository;
 
 public interface ProfileRepository extends CrudRepository<Profile, Integer> {
