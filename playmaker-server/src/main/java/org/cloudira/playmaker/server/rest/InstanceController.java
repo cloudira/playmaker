@@ -3,9 +3,7 @@ package org.cloudira.playmaker.server.rest;
 import org.cloudira.playmaker.server.discovery.ServiceDiscovery;
 import org.cloudira.playmaker.server.domain.ServiceInstance;
 import org.cloudira.playmaker.server.repository.ServiceRepository;
-import org.cloudira.playmaker.server.rest.converter.InstanceConverter;
-import org.cloudira.playmaker.server.rest.converter.ServiceConverter;
-import org.cloudira.playmaker.server.rest.converter.ServiceDetailsConverter;
+import org.cloudira.playmaker.server.rest.converter.RestConversionService;
 import org.cloudira.playmaker.server.rest.resource.InstanceResource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,22 +22,12 @@ public class InstanceController {
 	private ServiceDiscovery serviceDiscovery;
 	
 	@Autowired
-	private ServiceConverter serviceConverter;
-	
-	@Autowired
-	private ServiceDetailsConverter detailsConverter;
-	
-	@Autowired
-	private InstanceConverter instanceConverter;
+	private RestConversionService conversionService;
 	
 	@RequestMapping(value = "/{instanceId}", method = RequestMethod.GET)
 	public InstanceResource findService(@PathVariable int instanceId) {
 		ServiceInstance serviceInstance = serviceDiscovery.findServiceInstance(instanceId);
-		if (serviceInstance != null) {
-			return instanceConverter.convert(serviceInstance);
-		}
-		
-		return null;
+		return conversionService.convert(serviceInstance, InstanceResource.class);
 	}
 	
 }

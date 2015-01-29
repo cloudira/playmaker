@@ -10,6 +10,10 @@ public class InstanceConverter implements Converter<ServiceInstance, InstanceRes
 
 	@Override
 	public InstanceResource convert(ServiceInstance serviceInstance) {
+		if (serviceInstance == null) {
+			return null;
+		}
+		
 		InstanceResource res = new InstanceResource();
 		res.setId(serviceInstance.getId());
 		res.setName(serviceInstance.getName());

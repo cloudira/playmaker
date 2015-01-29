@@ -10,6 +10,10 @@ public class ProfileConverter implements Converter<Profile, ProfileResource> {
 
 	@Override
 	public ProfileResource convert(Profile profile) {
+		if (profile == null) {
+			return null;
+		}
+		
 		ProfileResource res = new ProfileResource();
 		res.setId(profile.getId());
 		res.setName(profile.getName());

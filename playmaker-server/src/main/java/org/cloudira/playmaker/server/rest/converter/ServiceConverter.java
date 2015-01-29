@@ -10,6 +10,10 @@ public class ServiceConverter implements Converter<Service, ServiceResource> {
 
 	@Override
 	public ServiceResource convert(Service service) {
+		if (service == null) {
+			return null;
+		}
+		
 		ServiceResource res = new ServiceResource();
 		res.setId(service.getId());
 		res.setName(service.getName());
