@@ -1,0 +1,109 @@
+<div class="row">
+		<div class="col-sm-4">
+			<div class="panel panel-primary">
+  				<div class="panel-heading">Info</div>
+  				<div class="panel-body">
+  					<div class="row">
+  						<div class="col-sm-3"><label>Artifact ID</label></div>
+  						<div class="col-sm-9">{{app.artifactId}}</div>
+  					</div>
+  					<div class="row">
+  						<div class="col-sm-3"><label>Group ID</label></div>
+  						<div class="col-sm-9">{{app.groupId}}</div>
+  					</div>
+  					<div class="row">
+  						<div class="col-sm-3"><label>Version</label></div>
+  						<div class="col-sm-9">{{app.version}}</div>
+  					</div>
+  				</div>
+  			</div>
+  			<div class="panel panel-primary">
+  				<div class="panel-heading">Health Checks</div>
+  				<div class="panel-body">
+  					<div class="row">
+  						<div class="col-sm-3"><label>status</label></div>
+  						<div class="col-sm-9"><span class="label label-success">{{app.status}}</span></div>
+  					</div>
+  					<div class="row">
+  						<div class="col-sm-3"><label>diskSpace</label></div>
+  						<div class="col-sm-9"><span class="label label-success">{{app.status}}</span></div>
+  					</div>
+  					<div class="row">
+  						<div class="col-sm-3"><label>db</label></div>
+  						<div class="col-sm-9"><span class="label label-success">{{app.status}}</span></div>
+  					</div>
+  				</div>
+  			</div>
+		</div>
+		<div class="col-sm-4">
+			<div class="panel panel-default">
+  				<div class="panel-heading">JVM</div>
+  				<div class="panel-body">
+  					<div class="row">
+  						<div class="col-sm-3"><label>Uptime</label></div>
+  						<div class="col-sm-9">{{app.uptime}}</div>
+  					</div>
+  					<div class="row">
+  						<div class="col-sm-3"><label>Processors</label></div>
+  						<div class="col-sm-9">{{app.processors}}</div>
+  					</div>
+  					<div class="row">
+  						<div class="col-sm-3"><label>Classes</label></div>
+  						<div class="col-sm-9">{{app.classesLoaded}} total / {{app.classes}} loaded / {{app.classesUnloaded}} unloaded</div>
+  					</div>
+  					<div class="row">
+  						<div class="col-sm-3"><label>Threads</label></div>
+  						<div class="col-sm-9">{{app.threads}} total / {{app.threadsDeamon}} deamon / {{app.threadsPeak}} peak</div>
+  					</div>
+  				</div>
+  			</div>
+			<div class="panel panel-default">
+  				<div class="panel-heading">Garbage Collection</div>
+  				<div class="panel-body">
+  					<div class="row">
+  						<div class="col-sm-5"><label>Ps_marksweep GC Count</label></div>
+  						<div class="col-sm-7">{{app.psMarksweepCount}}</div>
+  					</div>
+  					<div class="row">
+  						<div class="col-sm-5"><label>Ps_marksweep GC Time</label></div>
+  						<div class="col-sm-7">{{app.psMarksweepTime}}ms</div>
+  					</div>
+  					<div class="row">
+  						<div class="col-sm-5"><label>Ps_scavenge GC Count</label></div>
+  						<div class="col-sm-7">{{app.psScavengeCount}}</div>
+  					</div>
+  					<div class="row">
+  						<div class="col-sm-5"><label>Ps_scavenge GC Time</label></div>
+  						<div class="col-sm-7">{{app.psScavengeTime}}ms</div>
+  					</div>
+  				</div>
+  			</div>
+		</div>
+		<div class="col-sm-4">
+			<div class="panel panel-info">
+  				<div class="panel-heading">Memory</div>
+  				<div class="panel-body">
+  					<label>Total memory</label> ({{app.memoryUsed}} / {{app.memoryTotal}})
+  					<div class="progress">
+  						<div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="{{app.memoryPercent}}" aria-valuemin="0" aria-valuemax="100" style="width: {{app.memoryPercent}}%;">
+  							{{app.memoryPercent}}%
+  						</div>
+					</div>
+					<label>Heap memory</label> ({{app.heapUsed}} / {{app.heapTotal}})
+  					<div class="progress">
+  						<div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="{{app.heapPercent}}" aria-valuemin="0" aria-valuemax="100" style="width: {{app.heapPercent}}%;">
+  							{{app.heapPercent}}%
+  						</div>
+					</div>
+					<div class="row">
+  						<div class="col-sm-3"><label>Initial heap</label></div>
+  						<div class="col-sm-9">{{app.heapInitial}}</div>
+  					</div>
+  					<div class="row">
+  						<div class="col-sm-3"><label>Maximum heap</label></div>
+  						<div class="col-sm-9">{{app.heapMax}}</div>
+  					</div>
+  				</div>
+  			</div>
+		</div>
+	</div>

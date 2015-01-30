@@ -4,126 +4,17 @@
     </div>
     
     <ul class="nav nav-tabs">
-  		<li role="presentation" class="active"><a href="#">Application</a></li>
-  		<li role="presentation"><a href="#">Metrics</a></li>
-  		<li role="presentation"><a href="#">Envorinment</a></li>
-  		<li role="presentation"><a href="#">Configuration</a></li>
-  		<li role="presentation"><a href="#">Threads</a></li>
-  		<li role="presentation"><a href="#">Classpath</a></li>
-  		<li role="presentation"><a href="#">Logging</a></li>
-  		<li role="presentation"><a href="#">Trace</a></li>
-  		<li role="presentation"><a href="#">Beans</a></li>
-  		<li role="presentation"><a href="#">Mapping</a></li>
+  		<li data-ng-class="{active:isTabSelected(0)}"><a href data-ng-click="selectTab(0)">Application</a></li>
+  		<li data-ng-class="{active:isTabSelected(1)}"><a href data-ng-click="selectTab(1)">Metrics</a></li>
+  		<li data-ng-class="{active:isTabSelected(2)}"><a href data-ng-click="selectTab(2)">Environment</a></li>
+  		<li data-ng-class="{active:isTabSelected(3)}"><a href data-ng-click="selectTab(3)">Configuration</a></li>
+  		<li data-ng-class="{active:isTabSelected(4)}"><a href data-ng-click="selectTab(4)">Threads</a></li>
+  		<li data-ng-class="{active:isTabSelected(5)}"><a href data-ng-click="selectTab(5)">Classpath</a></li>
+  		<li data-ng-class="{active:isTabSelected(6)}"><a href data-ng-click="selectTab(6)">Logging</a></li>
+  		<li data-ng-class="{active:isTabSelected(7)}"><a href data-ng-click="selectTab(7)">Trace</a></li>
+  		<li data-ng-class="{active:isTabSelected(8)}"><a href data-ng-click="selectTab(8)">Beans</a></li>
+  		<li data-ng-class="{active:isTabSelected(9)}"><a href data-ng-click="selectTab(9)">Mapping</a></li>
 	</ul>
-	<br>
-    
-    <div class="row">
-		<div class="col-sm-4">
-			<div class="panel panel-primary">
-  				<div class="panel-heading">Info</div>
-  				<div class="panel-body">
-  					<div class="row">
-  						<div class="col-sm-3"><label>Artifact ID</label></div>
-  						<div class="col-sm-9">{{app.artifactId}}</div>
-  					</div>
-  					<div class="row">
-  						<div class="col-sm-3"><label>Group ID</label></div>
-  						<div class="col-sm-9">{{app.groupId}}</div>
-  					</div>
-  					<div class="row">
-  						<div class="col-sm-3"><label>Version</label></div>
-  						<div class="col-sm-9">{{app.version}}</div>
-  					</div>
-  				</div>
-  			</div>
-  			<div class="panel panel-primary">
-  				<div class="panel-heading">Health Checks</div>
-  				<div class="panel-body">
-  					<div class="row">
-  						<div class="col-sm-3"><label>status</label></div>
-  						<div class="col-sm-9"><span class="label label-success">{{app.status}}</span></div>
-  					</div>
-  					<div class="row">
-  						<div class="col-sm-3"><label>diskSpace</label></div>
-  						<div class="col-sm-9"><span class="label label-success">{{app.status}}</span></div>
-  					</div>
-  					<div class="row">
-  						<div class="col-sm-3"><label>db</label></div>
-  						<div class="col-sm-9"><span class="label label-success">{{app.status}}</span></div>
-  					</div>
-  				</div>
-  			</div>
-		</div>
-		<div class="col-sm-4">
-			<div class="panel panel-default">
-  				<div class="panel-heading">JVM</div>
-  				<div class="panel-body">
-  					<div class="row">
-  						<div class="col-sm-3"><label>Uptime</label></div>
-  						<div class="col-sm-9">{{app.uptime}}</div>
-  					</div>
-  					<div class="row">
-  						<div class="col-sm-3"><label>Processors</label></div>
-  						<div class="col-sm-9">{{app.processors}}</div>
-  					</div>
-  					<div class="row">
-  						<div class="col-sm-3"><label>Classes</label></div>
-  						<div class="col-sm-9">{{app.classes.loaded}} total / {{app.classes.current}} loaded / {{app.classes.unloaded}} unloaded</div>
-  					</div>
-  					<div class="row">
-  						<div class="col-sm-3"><label>Threads</label></div>
-  						<div class="col-sm-9">{{app.threads.current}} total / {{app.threads.deamon}} deamon / {{app.threads.peak}} peak</div>
-  					</div>
-  				</div>
-  			</div>
-			<div class="panel panel-default">
-  				<div class="panel-heading">Garbage Collection</div>
-  				<div class="panel-body">
-  					<div class="row">
-  						<div class="col-sm-5"><label>Ps_marksweep GC Count</label></div>
-  						<div class="col-sm-7">{{app.gc.ps_marksweep_count}}</div>
-  					</div>
-  					<div class="row">
-  						<div class="col-sm-5"><label>Ps_marksweep GC Time</label></div>
-  						<div class="col-sm-7">{{app.gc.ps_marksweep_time}}ms</div>
-  					</div>
-  					<div class="row">
-  						<div class="col-sm-5"><label>Ps_scavenge GC Count</label></div>
-  						<div class="col-sm-7">{{app.gc.ps_scavenge_count}}</div>
-  					</div>
-  					<div class="row">
-  						<div class="col-sm-5"><label>Ps_scavenge GC Time</label></div>
-  						<div class="col-sm-7">{{app.gc.ps_scavenge_time}}ms</div>
-  					</div>
-  				</div>
-  			</div>
-		</div>
-		<div class="col-sm-4">
-			<div class="panel panel-info">
-  				<div class="panel-heading">Memory</div>
-  				<div class="panel-body">
-  					<label>Total memory</label> ({{app.memory.used}} / {{app.memory.total}})
-  					<div class="progress">
-  						<div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="{{app.memory.percent}}" aria-valuemin="0" aria-valuemax="100" style="width: {{app.memory.percent}}%;">
-  							{{app.memory.percent}}%
-  						</div>
-					</div>
-					<label>Heap memory</label> ({{app.heap.used}} / {{app.heap.total}})
-  					<div class="progress">
-  						<div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="{{app.heap.percent}}" aria-valuemin="0" aria-valuemax="100" style="width: {{app.heap.percent}}%;">
-  							{{app.heap.percent}}%
-  						</div>
-					</div>
-					<div class="row">
-  						<div class="col-sm-3"><label>Initial heap</label></div>
-  						<div class="col-sm-9">{{app.heap.initial}}</div>
-  					</div>
-  					<div class="row">
-  						<div class="col-sm-3"><label>Maximum heap</label></div>
-  						<div class="col-sm-9">{{app.heap.max}}</div>
-  					</div>
-  				</div>
-  			</div>
-		</div>
-	</div>
+	
+	<div class="tab-content" style="padding-top: 20px" data-ng-include src="includeTab()" onload="refresh()"></div>
 </div>

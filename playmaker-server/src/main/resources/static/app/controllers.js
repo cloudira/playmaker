@@ -78,41 +78,75 @@
 	var ServiceInstanceController = function($scope, $routeParams, ServiceInstance) {
 		$scope.serviceInstance = ServiceInstance.get({ id: $routeParams.instanceId });
 		
-		$scope.app = {
-			artifactId: 'playmaker',
-			groupId: 'org.cloudira.playmaker',
-			version: '0.0.1-SNAPSHOT',
-			status: 'UP',
-			uptime: '00:00:57',
-			processors: 8,
-			classes: {
-				current: 9976,
-				loaded: 9977,
-				unloaded: 1
-			},
-			threads: {
-				current: 33,
-				deamon: 31,
-				peak: 33
-			},
-			memory: {
-				total: '194.50M',
-				used: '51.73M',
-				percent: 27
-			},
-			heap: {
-				initial: '128.00M',
-				max: '1,810.00M',
-				total: '194.50M',
-				used: '51.73M',
-				percent: 27
-			},
-			gc: {
-				ps_scavenge_count: 14,
-				ps_scavenge_time: 161,
-				ps_marksweep_count: 2,
-				ps_marksweep_time: 214,
+		$scope.tab = 0;
+		
+		$scope.tabs = [{
+			title: 'Application', 
+			page: '/view/instance/tab-details.html',
+			refresh: function() {
+				$scope.app = ServiceInstance.details({ id: $routeParams.instanceId });
 			}
+		}, {
+			title: 'Metrics', 
+			page: '/view/instance/tab-metrics.html',
+			refresh: function() {
+			}
+		}, {
+			title: 'Environment',
+			page: '/view/instance/tab-env.html',
+			refresh: function() {
+			}
+		}, {
+			title: 'Configuration',
+			page: '/view/instance/tab-config.html',
+			refresh: function() {
+			}
+		}, {
+			title: 'Threads',
+			page: '/view/instance/tab-threads.html',
+			refresh: function() {
+			}
+		}, {
+			title: 'Classpath',
+			page: '/view/instance/tab-classpath.html',
+			refresh: function() {
+			}
+		}, {
+			title: 'Logging',
+			page: '/view/instance/tab-logging.html',
+			refresh: function() {
+			}
+		}, {
+			title: 'Trace',
+			page: '/view/instance/tab-trace.html',
+			refresh: function() {
+			}
+		}, {
+			title: 'Beans',
+			page: '/view/instance/tab-beans.html',
+			refresh: function() {
+			}
+		},{
+			title: 'Mapping',
+			page: '/view/instance/tab-mapping.html',
+			refresh: function() {
+			}
+		}]
+		
+		$scope.selectTab = function (setTab) {
+			this.tab = setTab;
+		};
+		
+		$scope.isTabSelected = function(checkTab) {
+			return this.tab === checkTab;
+		};
+		
+		$scope.includeTab = function() {
+			return $scope.tabs[$scope.tab].page;
+		};
+		
+		$scope.refresh = function() {
+			$scope.tabs[$scope.tab].refresh();
 		};
 		
 	};

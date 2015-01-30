@@ -9,6 +9,10 @@
 	
 	var ServiceInstanceFactory = function($resource) {
 		return $resource('/api/instances/:id', { id: '@id' }, {
+			details: {
+				method: 'GET', 
+				url: '/api/instances/:id/details'
+			}
 		});
 	};
 	
