@@ -1,0 +1,19 @@
+<div class="container-fluid" data-ng-controller="InstanceEnvironmentController">
+	<div class="panel panel-default" data-ng-repeat="res in env">
+  		<div class="panel-heading">{{res.name}}</div>
+  		<table class="table">
+  			<thead>
+  				<tr>
+  					<th>Property</th>
+  					<th>Value</th>
+  				</tr>
+  			</thead>
+  			<tbody>
+  				<tr data-ng-repeat="(key, value) in res.properties">
+    				<td class="col-sm-3">{{key}}</td>
+    				<td>{{value}}</td>
+  				</tr>
+  			</tbody>
+  		</table>
+  	</div>
+ </div>

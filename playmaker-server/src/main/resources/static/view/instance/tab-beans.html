@@ -1,0 +1,40 @@
+<script type="text/ng-template" id="beanTree">
+    <div class="panel panel-default">
+  		<div class="panel-heading">{{ctx.name}}</div>
+  		<table class="table">
+  			<thead>
+  				<tr>
+  					<th>Name</th>
+  					<th>Scope</th>
+  					<th>Dependencies</th>
+  					<th>Bean</th>
+  				</tr>
+  			</thead>
+  			<tbody>
+  				<tr data-ng-repeat="bean in ctx.beans">
+    				<td>{{bean.name}}</td>
+    				<td>{{bean.scope}}</td>
+    				<td>
+						<ul class="list-inline" data-ng-if="bean.dependencies">
+							<li data-ng-repeat="dependency in bean.dependencies">{{dependency}}</li>
+						</ul>
+					</td>
+    				<td>
+						<label>Type:</label> {{bean.type}}</br>
+						<label>Resource:</label> {{bean.resource}}</br>
+					</td>
+  				</tr>
+  			</tbody>
+  		</table>
+  	</div>
+    <ul style="list-style: none;" data-ng-if="ctx.contexts">
+        <li data-ng-repeat="ctx in ctx.contexts" data-ng-include="'beanTree'">           
+        </li>
+    </ul>
+</script>
+
+<div class="container-fluid" data-ng-controller="InstanceBeansController">
+	<ul class="list-unstyled">
+		<li data-ng-include="'beanTree'"></li>
+	</ul>
+</div>

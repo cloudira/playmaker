@@ -12,6 +12,15 @@
 			details: {
 				method: 'GET', 
 				url: '/api/instances/:id/details'
+			},
+			env: {
+				method: 'GET',
+				url: 'api/instances/:id/env',
+				isArray: true
+			},
+			beans: {
+				method: 'GET', 
+				url: '/api/instances/:id/beans'
 			}
 		});
 	};

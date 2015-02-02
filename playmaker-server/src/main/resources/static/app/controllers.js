@@ -82,55 +82,34 @@
 		
 		$scope.tabs = [{
 			title: 'Application', 
-			page: '/view/instance/tab-details.html',
-			refresh: function() {
-				$scope.app = ServiceInstance.details({ id: $routeParams.instanceId });
-			}
+			page: '/view/instance/tab-details.html'
 		}, {
 			title: 'Metrics', 
-			page: '/view/instance/tab-metrics.html',
-			refresh: function() {
-			}
+			page: '/view/instance/tab-metrics.html'
 		}, {
 			title: 'Environment',
-			page: '/view/instance/tab-env.html',
-			refresh: function() {
-			}
+			page: '/view/instance/tab-env.html'
 		}, {
 			title: 'Configuration',
-			page: '/view/instance/tab-config.html',
-			refresh: function() {
-			}
+			page: '/view/instance/tab-config.html'
 		}, {
 			title: 'Threads',
-			page: '/view/instance/tab-threads.html',
-			refresh: function() {
-			}
+			page: '/view/instance/tab-threads.html'
 		}, {
 			title: 'Classpath',
-			page: '/view/instance/tab-classpath.html',
-			refresh: function() {
-			}
+			page: '/view/instance/tab-classpath.html'
 		}, {
 			title: 'Logging',
-			page: '/view/instance/tab-logging.html',
-			refresh: function() {
-			}
+			page: '/view/instance/tab-logging.html'
 		}, {
 			title: 'Trace',
-			page: '/view/instance/tab-trace.html',
-			refresh: function() {
-			}
+			page: '/view/instance/tab-trace.html'
 		}, {
 			title: 'Beans',
-			page: '/view/instance/tab-beans.html',
-			refresh: function() {
-			}
+			page: '/view/instance/tab-beans.html'
 		},{
 			title: 'Mapping',
-			page: '/view/instance/tab-mapping.html',
-			refresh: function() {
-			}
+			page: '/view/instance/tab-mapping.html'
 		}]
 		
 		$scope.selectTab = function (setTab) {
@@ -145,10 +124,18 @@
 			return $scope.tabs[$scope.tab].page;
 		};
 		
-		$scope.refresh = function() {
-			$scope.tabs[$scope.tab].refresh();
-		};
-		
+	};
+	
+	var InstanceDetailsController = function($scope, $routeParams, ServiceInstance) {
+		$scope.app = ServiceInstance.details({ id: $routeParams.instanceId });
+	};
+	
+	var InstanceEnvironmentController = function($scope, $routeParams, ServiceInstance) {
+		$scope.env = ServiceInstance.env({ id: $routeParams.instanceId });
+	};
+	
+	var InstanceBeansController = function($scope, $routeParams, ServiceInstance) {
+		$scope.ctx = ServiceInstance.beans({ id: $routeParams.instanceId });
 	};
 	
 	var ProfilesController = function($scope, Profile) {
@@ -184,6 +171,9 @@
 	MenuController.$inject = ['$scope'];
 	ServicesController.$inject = ['$scope', 'Service'];
 	ServiceInstanceController.$inject = ['$scope', '$routeParams', 'ServiceInstance'];
+	InstanceDetailsController.$inject = ['$scope', '$routeParams', 'ServiceInstance'];
+	InstanceEnvironmentController.$inject = ['$scope', '$routeParams', 'ServiceInstance'];
+	InstanceBeansController.$inject = ['$scope', '$routeParams', 'ServiceInstance'];
 	ProfilesController.$inject = ['$scope', 'Profile'];
 	
 	angular.module("playmaker.controllers")
@@ -191,6 +181,9 @@
 		.controller("MenuController", MenuController)
 		.controller("ServicesController", ServicesController)
 		.controller("ServiceInstanceController", ServiceInstanceController)
+		.controller("InstanceDetailsController", InstanceDetailsController)
+		.controller("InstanceEnvironmentController", InstanceEnvironmentController)
+		.controller("InstanceBeansController", InstanceBeansController)
 		.controller("ProfilesController", ProfilesController);		
 	
 }(angular));
