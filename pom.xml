@@ -54,9 +54,9 @@
 	</properties>
 
 	<modules>
+		<module>playmaker-actuator-client</module>
 		<module>playmaker-server</module>
 		<module>playmaker-client</module>
-		<module>playmaker-actuator-client</module>
 	</modules>
 
 	<build>
