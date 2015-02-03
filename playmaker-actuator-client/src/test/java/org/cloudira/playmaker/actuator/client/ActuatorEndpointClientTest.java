@@ -17,72 +17,73 @@ import org.jolokia.client.exception.J4pException;
 public class ActuatorEndpointClientTest {
 
 	public static void main(String[] args) throws J4pException {
+		String managementUrl = "http://localhost:8888/admin";
 		{
-			ActuatorEndpointClient<?> client = new AutoConfigurationEndpointClient("http://localhost:8888/admin");
-			System.out.println(client.invoke());
+			ActuatorEndpointClient<?> client = new AutoConfigurationEndpointClient();
+			System.out.println(client.invoke(managementUrl));
 		}
 		{
-			ConfigurationPropertiesEndpointClient client = new ConfigurationPropertiesEndpointClient("http://localhost:8888/admin");
-			System.out.println(client.invoke());
+			ConfigurationPropertiesEndpointClient client = new ConfigurationPropertiesEndpointClient();
+			System.out.println(client.invoke(managementUrl));
 
 		}
 		{
-			DumpEndpointClient client = new DumpEndpointClient("http://localhost:8888/admin");
-			List<ThreadInfoResource> invoke = (List<ThreadInfoResource>) client.invoke();
+			DumpEndpointClient client = new DumpEndpointClient();
+			List<ThreadInfoResource> invoke = (List<ThreadInfoResource>) client.invoke(managementUrl);
 			for (ThreadInfoResource res : invoke) {
 				System.out.println(res.getThreadName());
 			}
 		}
 		{
-			TraceEndpointClient client = new TraceEndpointClient("http://localhost:8888/admin");
-			List<TraceResource> invoke = client.invoke();
+			TraceEndpointClient client = new TraceEndpointClient();
+			List<TraceResource> invoke = client.invoke(managementUrl);
 			for (TraceResource tr : invoke) {
 				System.out.println(tr);
 			}
 		}
 		{
-			HealthEndpointClient client = new HealthEndpointClient("http://localhost:8888/admin");
-			System.out.println(client.invoke());
+			HealthEndpointClient client = new HealthEndpointClient();
+			System.out.println(client.invoke(managementUrl));
 		}
 		{
-			InfoEndpointClient client = new InfoEndpointClient("http://localhost:8888/admin");
-			System.out.println(client.invoke());
+			InfoEndpointClient client = new InfoEndpointClient();
+			System.out.println(client.invoke(managementUrl));
 		}
 		{
-			MappingsEndpointClient client = new MappingsEndpointClient("http://localhost:8888/admin");
-			System.out.println(client.invoke());
+			MappingsEndpointClient client = new MappingsEndpointClient();
+			System.out.println(client.invoke(managementUrl));
 		}
 		{
-			MetricsEndpointClient client = new MetricsEndpointClient("http://localhost:8888/admin");
-			System.out.println(client.invoke());
-			System.out.println(client.invoke(MetricsResource.class));
-			System.out.println(client.getValue("mem"));
+			MetricsEndpointClient client = new MetricsEndpointClient();
+			System.out.println(client.invoke(managementUrl));
+			System.out.println(client.invoke(managementUrl, MetricsResource.class));
+			System.out.println(client.getValue(managementUrl, "mem"));
 		}
 		{
-			BeansEndpointClient client = new BeansEndpointClient("http://localhost:8888/admin");
-			System.out.println(client.invoke());
+			BeansEndpointClient client = new BeansEndpointClient();
+			System.out.println(client.invoke(managementUrl));
 		}
 		{
-			JolokiaEndpointClient ec = new JolokiaEndpointClient("http://localhost:8888/admin");
-	        JMXResource list = ec.getList();
+			JolokiaEndpointClient ec = new JolokiaEndpointClient();
+	        JMXResource list = ec.getList(managementUrl);
 	        if (list instanceof JMXDomainsResource) {
 	        	for (Map.Entry<String, JMXDomainResource> entry : ((JMXDomainsResource) list).getDomains().entrySet()) {
 	        		System.out.println(entry);
 	        	}
 	        }
-	        list = ec.getList("JMImplementation");
+	        list = ec.getList(managementUrl, "JMImplementation");
 	        if (list instanceof JMXDomainResource) {
 	        	for (Map.Entry<String, JMXDomainTypeResource> entry : ((JMXDomainResource) list).getTypes().entrySet()) {
 	        		System.out.println(entry);
 	        	}
 	        }
-	        list = ec.getList("JMImplementation", "type=MBeanServerDelegate");
+	        list = ec.getList(managementUrl, "JMImplementation", "type=MBeanServerDelegate");
 	        if (list instanceof JMXDomainResource) {
 	        	for (Map.Entry<String, JMXDomainTypeResource> entry : ((JMXDomainResource) list).getTypes().entrySet()) {
 	        		System.out.println(entry);
 	        	}
 	        }
-	        list = ec.getList("JMImplementation", "type=MBeanServerDelegate");
+	        list = ec.getList(managementUrl, "JMImplementation", "type=MBeanServerDelegate");
 	        if (list instanceof JMXDomainResource) {
 	        	for (Map.Entry<String, JMXDomainTypeResource> entry : ((JMXDomainResource) list).getTypes().entrySet()) {
 	        		System.out.println(entry);
@@ -90,35 +91,35 @@ public class ActuatorEndpointClientTest {
 	        }
 		}
 		{
-			EnvironmentEndpointClient client = new EnvironmentEndpointClient("http://localhost:8888/admin");
-			System.out.println(client.invoke());
-			System.out.println(client.invoke(EnvironmentResource.class));
-			System.out.println(client.getValue("os.version"));
-			System.out.println(client.reset());
+			EnvironmentEndpointClient client = new EnvironmentEndpointClient();
+			System.out.println(client.invoke(managementUrl));
+			System.out.println(client.invoke(managementUrl, EnvironmentResource.class));
+			System.out.println(client.getValue(managementUrl, "os.version"));
+			System.out.println(client.reset(managementUrl));
 			// System.out.println(client.getValue("XXXX"));
-			System.out.println(client.set(Collections.<String, String> singletonMap("XXXX", "CCCCC")));
-			System.out.println(client.getValue("XXXX"));
-			System.out.println(client.reset());
+			System.out.println(client.set(managementUrl, Collections.<String, String> singletonMap("XXXX", "CCCCC")));
+			System.out.println(client.getValue(managementUrl, "XXXX"));
+			System.out.println(client.reset(managementUrl));
 		}
 		{
-			PauseEndpointClient client = new PauseEndpointClient("http://localhost:8888/admin");
-			System.out.println(client.invoke());
+			PauseEndpointClient client = new PauseEndpointClient();
+			System.out.println(client.invoke(managementUrl));
 		}
 		{
-			ResumeEndpointClient client = new ResumeEndpointClient("http://localhost:8888/admin");
-			System.out.println(client.invoke());
+			ResumeEndpointClient client = new ResumeEndpointClient();
+			System.out.println(client.invoke(managementUrl));
 		}
 		{
-			RefreshEndpointClient client = new RefreshEndpointClient("http://localhost:8888/admin");
-			System.out.println(client.invoke());
+			RefreshEndpointClient client = new RefreshEndpointClient();
+			System.out.println(client.invoke(managementUrl));
 		}
 		{
-			RestartEndpointClient client = new RestartEndpointClient("http://localhost:8888/admin");
-			System.out.println(client.invoke());
+			RestartEndpointClient client = new RestartEndpointClient();
+			System.out.println(client.invoke(managementUrl));
 		}
 		{
-			ShutdownEndpointClient client = new ShutdownEndpointClient("http://localhost:8888/admin");
-			System.out.println(client.invoke());
+			ShutdownEndpointClient client = new ShutdownEndpointClient();
+			System.out.println(client.invoke(managementUrl));
 		}
 	}
 }

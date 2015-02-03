@@ -18,11 +18,8 @@ import org.springframework.web.util.UriComponentsBuilder;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 public abstract class ActuatorEndpointClient<T> extends RestTemplate {
-
-	protected String managementUrl;
 	
-	public ActuatorEndpointClient(String managementUrl) {
-		this.managementUrl = managementUrl;
+	public ActuatorEndpointClient() {
 		StringHttpMessageConverter stringConverter = new StringHttpMessageConverter();
 		stringConverter.setWriteAcceptCharset(false);
 
@@ -61,32 +58,32 @@ public abstract class ActuatorEndpointClient<T> extends RestTemplate {
 		return new ParameterizedTypeReference<T>() {};
 	}
 
-	protected String getUrl(String... pathSegments) {
+	protected String getUrl(String managementUrl, String... pathSegments) {
 		return UriComponentsBuilder.fromHttpUrl(managementUrl).pathSegment(getEndpointPath()).pathSegment(pathSegments).build().toString();
 	}
 
-	public <V> V invoke(Class<V> valueType) {
-		return getForObject(getUrl(), valueType, Collections.emptyMap());
+	public <V> V invoke(String managementUrl, Class<V> valueType) {
+		return getForObject(getUrl(managementUrl), valueType, Collections.emptyMap());
 	}
 
-	public <V> V invoke(String path, Class<V> valueType) {
-		return getForObject(getUrl(path), valueType, Collections.emptyMap());
+	public <V> V invoke(String managementUrl, String path, Class<V> valueType) {
+		return getForObject(getUrl(managementUrl, path), valueType, Collections.emptyMap());
 	}
 
-	public <V> V invoke(String path, Class<V> valueType, Map<String, Object> pathVariables) {
-		return getForObject(getUrl(path), valueType, pathVariables);
+	public <V> V invoke(String managementUrl, String path, Class<V> valueType, Map<String, Object> pathVariables) {
+		return getForObject(getUrl(managementUrl, path), valueType, pathVariables);
 	}
 
-	public <V> V invoke(String path, Class<V> valueType, Object... pathVariables) {
-		return getForObject(getUrl(path), valueType, pathVariables);
+	public <V> V invoke(String managementUrl, String path, Class<V> valueType, Object... pathVariables) {
+		return getForObject(getUrl(managementUrl, path), valueType, pathVariables);
 	}
 
-	public T invoke() {
-		return (T) exchange(getUrl(), getHttpMethod(), null, getParameterizedTypeReference(), Collections.emptyMap()).getBody();
+	public T invoke(String managementUrl) {
+		return (T) exchange(getUrl(managementUrl), getHttpMethod(), null, getParameterizedTypeReference(), Collections.emptyMap()).getBody();
 	}
 	
 	@Override
 	public String toString() {
-		return getClass().getSimpleName() + "<" + getParameterizedTypeReference().getType() + "@" + getHttpMethod() + " : " + getUrl() + ">";
+		return getClass().getSimpleName() + "<" + getParameterizedTypeReference().getType() + "@" + getHttpMethod() + " : " + getEndpointPath() + ">";
 	}
 }

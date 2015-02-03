@@ -31,14 +31,10 @@ public class JolokiaEndpointClient {
 	public enum LoggerLevel {
 		OFF, ERROR, WARN, INFO, DEBUG, TRACE, ALL
 	}
-
-	protected String managementUrl;
 	
 	protected ObjectMapper objectMapper = new ObjectMapper();
 	
-	public JolokiaEndpointClient(String managementUrl) {
-		this.managementUrl = managementUrl;
-		
+	public JolokiaEndpointClient() {
 		objectMapper.enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
 	}
 	
@@ -46,17 +42,17 @@ public class JolokiaEndpointClient {
 		return "jolokia";
 	}
 	
-	protected String getUrl(String... pathSegments) {
+	protected String getUrl(String managementUrl, String... pathSegments) {
 		return UriComponentsBuilder.fromHttpUrl(managementUrl).pathSegment(getEndpointPath()).build().toString();
 	}
 	
-	protected J4pClient getClient() {
-		return J4pClientBuilderFactory.url(getUrl()).build();
+	protected J4pClient getClient(String managementUrl) {
+		return J4pClientBuilderFactory.url(getUrl(managementUrl)).build();
 	}
 	
-	public JMXResource getList(String... paths) throws J4pException {
+	public JMXResource getList(String managementUrl, String... paths) throws J4pException {
 		try {
-			JSONObject result = ((JSONObject) getClient().execute(new J4pListRequest(Arrays.asList(paths))).getValue());
+			JSONObject result = ((JSONObject) getClient(managementUrl).execute(new J4pListRequest(Arrays.asList(paths))).getValue());
 			if (paths.length == 0) {
 				return objectMapper.readValue(result.toJSONString().getBytes(), JMXDomainsResource.class);
 			} else if (paths.length == 1) {
@@ -70,28 +66,28 @@ public class JolokiaEndpointClient {
 		}
 	}
 
-	public List<String> getLoggerList() throws J4pException, MalformedObjectNameException {
+	public List<String> getLoggerList(String managementUrl) throws J4pException, MalformedObjectNameException {
 		J4pReadRequest request = new J4pReadRequest("ch.qos.logback.classic:Name=default,Type=ch.qos.logback.classic.jmx.JMXConfigurator", "LoggerList");
-		return getClient().execute(request).getValue();
+		return getClient(managementUrl).execute(request).getValue();
 	}
 	
-	public Map<String, LoggerLevel> getLoggerEfectiveLevels(List<String> loggers) throws MalformedObjectNameException, J4pException {
+	public Map<String, LoggerLevel> getLoggerEfectiveLevels(String managementUrl, List<String> loggers) throws MalformedObjectNameException, J4pException {
 		List<J4pExecRequest> requests = new ArrayList<>();
 		for (String logger : loggers) {
 			J4pExecRequest request = new J4pExecRequest("ch.qos.logback.classic:Name=default,Type=ch.qos.logback.classic.jmx.JMXConfigurator", "getLoggerEffectiveLevel", logger);
 			requests.add(request);
 		}
 		Map<String, LoggerLevel> levels = new LinkedHashMap<String, LoggerLevel>();
-		List<J4pResponse<J4pExecRequest>> execute = getClient().execute(requests);
+		List<J4pResponse<J4pExecRequest>> execute = getClient(managementUrl).execute(requests);
 		for (J4pResponse<J4pExecRequest> res : execute) {
 			levels.put((String) res.getRequest().getArguments().get(0), LoggerLevel.valueOf((String) res.getValue()));
 		}
 		return levels;
 	}
 	
-	public String setLoggerLevel(J4pClient client, String logger, LoggerLevel level) throws MalformedObjectNameException, J4pException {
+	public String setLoggerLevel(String managementUrl, String logger, LoggerLevel level) throws MalformedObjectNameException, J4pException {
 		J4pExecRequest request = new J4pExecRequest("ch.qos.logback.classic:Name=default,Type=ch.qos.logback.classic.jmx.JMXConfigurator", "setLoggerLevel", logger, level);
-		return getClient().execute(request).getValue();
+		return getClient(managementUrl).execute(request).getValue();
 	}
 	
 }

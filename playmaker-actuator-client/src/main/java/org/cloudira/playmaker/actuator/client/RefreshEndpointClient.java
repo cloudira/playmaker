@@ -4,11 +4,7 @@ import java.util.List;
 
 import org.springframework.http.HttpMethod;
 
-public class RefreshEndpointClient extends ActuatorEndpointClient<List<String>>{
-
-	public RefreshEndpointClient(String managementUrl) {
-		super(managementUrl);
-	}
+public class RefreshEndpointClient extends ActuatorEndpointClient<List<String>> {
 	
 	@Override
 	public String getEndpointPath() {

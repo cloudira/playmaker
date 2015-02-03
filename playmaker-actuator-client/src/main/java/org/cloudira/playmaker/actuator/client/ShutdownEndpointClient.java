@@ -4,11 +4,7 @@ import java.util.Map;
 
 import org.springframework.http.HttpMethod;
 
-public class ShutdownEndpointClient extends ActuatorEndpointClient<Map<String, Object>>{
-
-	public ShutdownEndpointClient(String managementUrl) {
-		super(managementUrl);
-	}
+public class ShutdownEndpointClient extends ActuatorEndpointClient<Map<String, Object>> {
 	
 	@Override
 	public String getEndpointPath() {
