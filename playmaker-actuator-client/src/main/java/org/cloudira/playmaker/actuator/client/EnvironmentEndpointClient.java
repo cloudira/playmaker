@@ -3,7 +3,7 @@ package org.cloudira.playmaker.actuator.client;
 import java.util.Collections;
 import java.util.Map;
 
-import org.cloudira.playmaker.actuator.client.resource.EnvironmentResource;
+import org.cloudira.playmaker.actuator.client.resource.Environment;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -12,7 +12,7 @@ import org.springframework.http.MediaType;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
-public class EnvironmentEndpointClient extends ActuatorEndpointClient<EnvironmentResource> {
+public class EnvironmentEndpointClient extends ActuatorEndpointClient<Environment> {
 	
 	private static ParameterizedTypeReference<Map<String, String>> MAP_REFERENCE = new ParameterizedTypeReference<Map<String,String>>() {};
 	

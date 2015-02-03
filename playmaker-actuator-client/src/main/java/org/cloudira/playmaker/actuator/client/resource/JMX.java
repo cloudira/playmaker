@@ -1,5 +1,5 @@
 package org.cloudira.playmaker.actuator.client.resource;
 
-public interface JMXResource {
+public interface JMX {
 
 }

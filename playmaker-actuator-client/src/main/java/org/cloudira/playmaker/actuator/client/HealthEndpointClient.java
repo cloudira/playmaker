@@ -1,8 +1,8 @@
 package org.cloudira.playmaker.actuator.client;
 
-import org.cloudira.playmaker.actuator.client.resource.HealthResource;
+import org.cloudira.playmaker.actuator.client.resource.Health;
 
-public class HealthEndpointClient extends ActuatorEndpointClient<HealthResource> {
+public class HealthEndpointClient extends ActuatorEndpointClient<Health> {
 	
 	@Override
 	public String getEndpointPath() {

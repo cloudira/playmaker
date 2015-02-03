@@ -2,11 +2,11 @@ package org.cloudira.playmaker.actuator.client.resource;
 
 import java.util.List;
 
-public class ContextBeansResource {
+public class ContextBeans {
 
 	private String context;
 	private String parent;
-	private List<BeanResource> beans;
+	private List<Bean> beans;
 
 	public String getContext() {
 		return context;
@@ -24,15 +24,15 @@ public class ContextBeansResource {
 		this.parent = parent;
 	}
 
-	public List<BeanResource> getBeans() {
+	public List<Bean> getBeans() {
 		return beans;
 	}
 
-	public void setBeans(List<BeanResource> beans) {
+	public void setBeans(List<Bean> beans) {
 		this.beans = beans;
 	}
 
-	public static class BeanResource {
+	public static class Bean {
 		private String bean;
 		private String scope;
 		private String type;
@@ -72,13 +72,13 @@ public class ContextBeansResource {
 
 		@Override
 		public String toString() {
-			return "BeanResource [bean=" + bean + ", scope=" + scope + ", type=" + type + ", dependencies=" + dependencies + "]";
+			return "Bean [bean=" + bean + ", scope=" + scope + ", type=" + type + ", dependencies=" + dependencies + "]";
 		}
 	}
 
 	@Override
 	public String toString() {
-		return "ContextBeansResource [context=" + context + ", parent=" + parent + ", beans=" + beans + "]";
+		return "ContextBeans [context=" + context + ", parent=" + parent + ", beans=" + beans + "]";
 	}
 
 }

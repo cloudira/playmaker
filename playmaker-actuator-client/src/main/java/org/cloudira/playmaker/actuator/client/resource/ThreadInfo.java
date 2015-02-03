@@ -2,7 +2,7 @@ package org.cloudira.playmaker.actuator.client.resource;
 
 import java.util.Arrays;
 
-public class ThreadInfoResource {
+public class ThreadInfo {
 
 	private String threadName;
 	private long threadId;
@@ -17,10 +17,10 @@ public class ThreadInfoResource {
 	private boolean inNative;
 	private boolean suspended;
 	private Thread.State threadState;
-	private StackTraceElementResource[] stackTrace;
-	private MonitorInfoResource[] lockedMonitors;
-	private LockInfoResource[] lockedSynchronizers;
-	private LockInfoResource lockInfo;
+	private StackTraceElement[] stackTrace;
+	private MonitorInfo[] lockedMonitors;
+	private LockInfo[] lockedSynchronizers;
+	private LockInfo lockInfo;
 
 	public String getThreadName() {
 		return threadName;
@@ -118,39 +118,39 @@ public class ThreadInfoResource {
 		this.threadState = threadState;
 	}
 
-	public StackTraceElementResource[] getStackTrace() {
+	public StackTraceElement[] getStackTrace() {
 		return stackTrace;
 	}
 
-	public void setStackTrace(StackTraceElementResource[] stackTrace) {
+	public void setStackTrace(StackTraceElement[] stackTrace) {
 		this.stackTrace = stackTrace;
 	}
 
-	public MonitorInfoResource[] getLockedMonitors() {
+	public MonitorInfo[] getLockedMonitors() {
 		return lockedMonitors;
 	}
 
-	public void setLockedMonitors(MonitorInfoResource[] lockedMonitors) {
+	public void setLockedMonitors(MonitorInfo[] lockedMonitors) {
 		this.lockedMonitors = lockedMonitors;
 	}
 
-	public LockInfoResource[] getLockedSynchronizers() {
+	public LockInfo[] getLockedSynchronizers() {
 		return lockedSynchronizers;
 	}
 
-	public void setLockedSynchronizers(LockInfoResource[] lockedSynchronizers) {
+	public void setLockedSynchronizers(LockInfo[] lockedSynchronizers) {
 		this.lockedSynchronizers = lockedSynchronizers;
 	}
 
-	public LockInfoResource getLockInfo() {
+	public LockInfo getLockInfo() {
 		return lockInfo;
 	}
 
-	public void setLockInfo(LockInfoResource lockInfo) {
+	public void setLockInfo(LockInfo lockInfo) {
 		this.lockInfo = lockInfo;
 	}
 
-	public static class LockInfoResource {
+	public static class LockInfo {
 		private String className;
 		private int identityHashCode;
 
@@ -172,14 +172,15 @@ public class ThreadInfoResource {
 
 		@Override
 		public String toString() {
-			return "LockInfoResource [className=" + className + ", identityHashCode=" + identityHashCode + "]";
+			return "LockInfo [className=" + className + ", identityHashCode=" + identityHashCode + "]";
 		}
 
 	}
 
-	public static class MonitorInfoResource extends LockInfoResource {
+	public static class MonitorInfo extends LockInfo {
+		
 		private int lockedStackDepth;
-		private StackTraceElementResource lockedStackFrame;
+		private StackTraceElement lockedStackFrame;
 
 		public int getLockedStackDepth() {
 			return lockedStackDepth;
@@ -189,21 +190,22 @@ public class ThreadInfoResource {
 			this.lockedStackDepth = lockedStackDepth;
 		}
 
-		public StackTraceElementResource getLockedStackFrame() {
+		public StackTraceElement getLockedStackFrame() {
 			return lockedStackFrame;
 		}
 
-		public void setLockedStackFrame(StackTraceElementResource lockedStackFrame) {
+		public void setLockedStackFrame(StackTraceElement lockedStackFrame) {
 			this.lockedStackFrame = lockedStackFrame;
 		}
 
 		@Override
 		public String toString() {
-			return "MonitorInfoResource [lockedStackDepth=" + lockedStackDepth + ", lockedStackFrame=" + lockedStackFrame + ", getClassName()=" + getClassName() + ", getIdentityHashCode()=" + getIdentityHashCode() + "]";
+			return "MonitorInfo [lockedStackDepth=" + lockedStackDepth + ", lockedStackFrame=" + lockedStackFrame + ", getClassName()=" + getClassName() + ", getIdentityHashCode()=" + getIdentityHashCode() + "]";
 		}
 	}
 
-	public static class StackTraceElementResource {
+	public static class StackTraceElement {
+		
 		private String methodName;
 		private String fileName;
 		private int lineNumber;
@@ -252,13 +254,13 @@ public class ThreadInfoResource {
 
 		@Override
 		public String toString() {
-			return "StackTraceElementResource [methodName=" + methodName + ", fileName=" + fileName + ", lineNumber=" + lineNumber + ", className=" + className + ", nativeMethod=" + nativeMethod + "]";
+			return "StackTraceElement [methodName=" + methodName + ", fileName=" + fileName + ", lineNumber=" + lineNumber + ", className=" + className + ", nativeMethod=" + nativeMethod + "]";
 		}
 	}
 
 	@Override
 	public String toString() {
-		return "ThreadInfoResource [threadName=" + threadName + ", threadId=" + threadId + ", blockedTime=" + blockedTime + ", blockedCount=" + blockedCount + ", waitedTime=" + waitedTime + ", waitedCount=" + waitedCount + ", lockName=" + lockName + ", lockOwnerId=" + lockOwnerId
+		return "ThreadInfo [threadName=" + threadName + ", threadId=" + threadId + ", blockedTime=" + blockedTime + ", blockedCount=" + blockedCount + ", waitedTime=" + waitedTime + ", waitedCount=" + waitedCount + ", lockName=" + lockName + ", lockOwnerId=" + lockOwnerId
 				+ ", lockOwnerName=" + lockOwnerName + ", inNative=" + inNative + ", suspended=" + suspended + ", threadState=" + threadState + ", stackTrace=" + Arrays.toString(stackTrace) + ", lockedMonitors=" + Arrays.toString(lockedMonitors) + ", lockedSynchronizers="
 				+ Arrays.toString(lockedSynchronizers) + ", lockInfo=" + lockInfo + "]";
 	}

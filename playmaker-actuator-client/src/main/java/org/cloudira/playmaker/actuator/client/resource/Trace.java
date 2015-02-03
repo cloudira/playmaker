@@ -3,13 +3,13 @@ package org.cloudira.playmaker.actuator.client.resource;
 import java.util.Date;
 import java.util.Map;
 
-public final class TraceResource {
+public final class Trace {
 
 	private Date timestamp;
 
 	private Map<String, Object> info;
 
-	public TraceResource() {
+	public Trace() {
 	}
 
 	public Date getTimestamp() {

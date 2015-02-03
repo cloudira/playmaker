@@ -4,14 +4,14 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-import org.cloudira.playmaker.actuator.client.resource.EnvironmentResource;
-import org.cloudira.playmaker.actuator.client.resource.JMXDomainsResource;
-import org.cloudira.playmaker.actuator.client.resource.JMXResource;
-import org.cloudira.playmaker.actuator.client.resource.MetricsResource;
-import org.cloudira.playmaker.actuator.client.resource.ThreadInfoResource;
-import org.cloudira.playmaker.actuator.client.resource.TraceResource;
-import org.cloudira.playmaker.actuator.client.resource.JMXDomainsResource.JMXDomainResource;
-import org.cloudira.playmaker.actuator.client.resource.JMXDomainsResource.JMXDomainTypeResource;
+import org.cloudira.playmaker.actuator.client.resource.Environment;
+import org.cloudira.playmaker.actuator.client.resource.JMXDomains;
+import org.cloudira.playmaker.actuator.client.resource.JMX;
+import org.cloudira.playmaker.actuator.client.resource.Metrics;
+import org.cloudira.playmaker.actuator.client.resource.ThreadInfo;
+import org.cloudira.playmaker.actuator.client.resource.Trace;
+import org.cloudira.playmaker.actuator.client.resource.JMXDomains.JMXDomain;
+import org.cloudira.playmaker.actuator.client.resource.JMXDomains.JMXDomainType;
 import org.jolokia.client.exception.J4pException;
 
 public class ActuatorEndpointClientTest {
@@ -29,15 +29,15 @@ public class ActuatorEndpointClientTest {
 		}
 		{
 			DumpEndpointClient client = new DumpEndpointClient();
-			List<ThreadInfoResource> invoke = (List<ThreadInfoResource>) client.invoke(managementUrl);
-			for (ThreadInfoResource res : invoke) {
+			List<ThreadInfo> invoke = (List<ThreadInfo>) client.invoke(managementUrl);
+			for (ThreadInfo res : invoke) {
 				System.out.println(res.getThreadName());
 			}
 		}
 		{
 			TraceEndpointClient client = new TraceEndpointClient();
-			List<TraceResource> invoke = client.invoke(managementUrl);
-			for (TraceResource tr : invoke) {
+			List<Trace> invoke = client.invoke(managementUrl);
+			for (Trace tr : invoke) {
 				System.out.println(tr);
 			}
 		}
@@ -56,7 +56,7 @@ public class ActuatorEndpointClientTest {
 		{
 			MetricsEndpointClient client = new MetricsEndpointClient();
 			System.out.println(client.invoke(managementUrl));
-			System.out.println(client.invoke(managementUrl, MetricsResource.class));
+			System.out.println(client.invoke(managementUrl, Metrics.class));
 			System.out.println(client.getValue(managementUrl, "mem"));
 		}
 		{
@@ -64,42 +64,42 @@ public class ActuatorEndpointClientTest {
 			System.out.println(client.invoke(managementUrl));
 		}
 		{
-			JolokiaEndpointClient ec = new JolokiaEndpointClient();
-	        JMXResource list = ec.getList(managementUrl);
-	        if (list instanceof JMXDomainsResource) {
-	        	for (Map.Entry<String, JMXDomainResource> entry : ((JMXDomainsResource) list).getDomains().entrySet()) {
-	        		System.out.println(entry);
-	        	}
-	        }
-	        list = ec.getList(managementUrl, "JMImplementation");
-	        if (list instanceof JMXDomainResource) {
-	        	for (Map.Entry<String, JMXDomainTypeResource> entry : ((JMXDomainResource) list).getTypes().entrySet()) {
-	        		System.out.println(entry);
-	        	}
-	        }
-	        list = ec.getList(managementUrl, "JMImplementation", "type=MBeanServerDelegate");
-	        if (list instanceof JMXDomainResource) {
-	        	for (Map.Entry<String, JMXDomainTypeResource> entry : ((JMXDomainResource) list).getTypes().entrySet()) {
-	        		System.out.println(entry);
-	        	}
-	        }
-	        list = ec.getList(managementUrl, "JMImplementation", "type=MBeanServerDelegate");
-	        if (list instanceof JMXDomainResource) {
-	        	for (Map.Entry<String, JMXDomainTypeResource> entry : ((JMXDomainResource) list).getTypes().entrySet()) {
-	        		System.out.println(entry);
-	        	}
-	        }
-		}
-		{
 			EnvironmentEndpointClient client = new EnvironmentEndpointClient();
 			System.out.println(client.invoke(managementUrl));
-			System.out.println(client.invoke(managementUrl, EnvironmentResource.class));
+			System.out.println(client.invoke(managementUrl, Environment.class));
 			System.out.println(client.getValue(managementUrl, "os.version"));
 			System.out.println(client.reset(managementUrl));
 			// System.out.println(client.getValue("XXXX"));
 			System.out.println(client.set(managementUrl, Collections.<String, String> singletonMap("XXXX", "CCCCC")));
 			System.out.println(client.getValue(managementUrl, "XXXX"));
 			System.out.println(client.reset(managementUrl));
+		}
+		{
+			JolokiaEndpointClient ec = new JolokiaEndpointClient();
+	        JMX list = ec.getList(managementUrl);
+	        if (list instanceof JMXDomains) {
+	        	for (Map.Entry<String, JMXDomain> entry : ((JMXDomains) list).getDomains().entrySet()) {
+	        		System.out.println(entry);
+	        	}
+	        }
+	        list = ec.getList(managementUrl, "JMImplementation");
+	        if (list instanceof JMXDomain) {
+	        	for (Map.Entry<String, JMXDomainType> entry : ((JMXDomain) list).getTypes().entrySet()) {
+	        		System.out.println(entry);
+	        	}
+	        }
+	        list = ec.getList(managementUrl, "JMImplementation", "type=MBeanServerDelegate");
+	        if (list instanceof JMXDomain) {
+	        	for (Map.Entry<String, JMXDomainType> entry : ((JMXDomain) list).getTypes().entrySet()) {
+	        		System.out.println(entry);
+	        	}
+	        }
+	        list = ec.getList(managementUrl, "JMImplementation", "type=MBeanServerDelegate");
+	        if (list instanceof JMXDomain) {
+	        	for (Map.Entry<String, JMXDomainType> entry : ((JMXDomain) list).getTypes().entrySet()) {
+	        		System.out.println(entry);
+	        	}
+	        }
 		}
 		{
 			PauseEndpointClient client = new PauseEndpointClient();

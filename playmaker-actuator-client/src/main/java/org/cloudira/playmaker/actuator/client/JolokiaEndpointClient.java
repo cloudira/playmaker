@@ -9,10 +9,10 @@ import java.util.Map;
 
 import javax.management.MalformedObjectNameException;
 
-import org.cloudira.playmaker.actuator.client.resource.JMXDomainsResource;
-import org.cloudira.playmaker.actuator.client.resource.JMXDomainsResource.JMXDomainResource;
-import org.cloudira.playmaker.actuator.client.resource.JMXDomainsResource.JMXDomainTypeResource;
-import org.cloudira.playmaker.actuator.client.resource.JMXResource;
+import org.cloudira.playmaker.actuator.client.resource.JMXDomains;
+import org.cloudira.playmaker.actuator.client.resource.JMXDomains.JMXDomain;
+import org.cloudira.playmaker.actuator.client.resource.JMXDomains.JMXDomainType;
+import org.cloudira.playmaker.actuator.client.resource.JMX;
 import org.jolokia.client.J4pClient;
 import org.jolokia.client.J4pClientBuilderFactory;
 import org.jolokia.client.exception.J4pException;
@@ -50,15 +50,15 @@ public class JolokiaEndpointClient {
 		return J4pClientBuilderFactory.url(getUrl(managementUrl)).build();
 	}
 	
-	public JMXResource getList(String managementUrl, String... paths) throws J4pException {
+	public JMX getList(String managementUrl, String... paths) throws J4pException {
 		try {
 			JSONObject result = ((JSONObject) getClient(managementUrl).execute(new J4pListRequest(Arrays.asList(paths))).getValue());
 			if (paths.length == 0) {
-				return objectMapper.readValue(result.toJSONString().getBytes(), JMXDomainsResource.class);
+				return objectMapper.readValue(result.toJSONString().getBytes(), JMXDomains.class);
 			} else if (paths.length == 1) {
-				return objectMapper.readValue(result.toJSONString().getBytes(), JMXDomainResource.class);
+				return objectMapper.readValue(result.toJSONString().getBytes(), JMXDomain.class);
 			} else if (paths.length == 2) {
-				return objectMapper.readValue(result.toJSONString().getBytes(), JMXDomainTypeResource.class);
+				return objectMapper.readValue(result.toJSONString().getBytes(), JMXDomainType.class);
 			}
 			throw new IllegalArgumentException("Usupported paths size: " + paths.length + " -> " + Arrays.toString(paths));
 		} catch (IOException e) {

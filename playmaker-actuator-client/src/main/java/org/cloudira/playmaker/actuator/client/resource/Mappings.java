@@ -6,21 +6,21 @@ import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 
-public class MappingsResource {
+public class Mappings {
 	
-	private Map<String, MappingResource> mappings = new LinkedHashMap<String, MappingsResource.MappingResource>();
+	private Map<String, Mapping> mappings = new LinkedHashMap<>();
 	
 	@JsonAnyGetter
-	public Map<String, MappingResource> getMappings() {
+	public Map<String, Mapping> getMappings() {
 		return mappings;
 	}
 	
 	@JsonAnySetter
-	public void setMapping(String key, MappingResource value) {
+	public void setMapping(String key, Mapping value) {
 		getMappings().put(key, value);
 	}
 	
-	public static class MappingResource {
+	public static class Mapping {
 		
 		private String bean;
 		private String method;
@@ -43,14 +43,14 @@ public class MappingsResource {
 
 		@Override
 		public String toString() {
-			return "MappingResource [bean=" + bean + ", method=" + method + "]";
+			return "Mapping [bean=" + bean + ", method=" + method + "]";
 		}
 		
 	}
 
 	@Override
 	public String toString() {
-		return "MappingsResource [mappings=" + mappings + "]";
+		return "Mappings [mappings=" + mappings + "]";
 	}
 	
 }

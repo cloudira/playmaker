@@ -8,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
 
-public class MetricsResource {
+public class Metrics {
 	
 	private Long mem;
 	@JsonProperty("mem.free")
@@ -249,7 +249,7 @@ public class MetricsResource {
 
 	@Override
 	public String toString() {
-		return "MetricsResource [mem=" + mem + ", memFree=" + memFree + ", processors=" + processors + ", uptime=" + uptime + ", instanceUptime=" + instanceUptime + ", systemloadAverage=" + systemloadAverage + ", heapDetails=" + heapDetails + ", threadsDetails=" + threadsDetails
+		return "Metrics [mem=" + mem + ", memFree=" + memFree + ", processors=" + processors + ", uptime=" + uptime + ", instanceUptime=" + instanceUptime + ", systemloadAverage=" + systemloadAverage + ", heapDetails=" + heapDetails + ", threadsDetails=" + threadsDetails
 				+ ", classesDetails=" + classesDetails + ", details=" + details + "]";
 	}
 	

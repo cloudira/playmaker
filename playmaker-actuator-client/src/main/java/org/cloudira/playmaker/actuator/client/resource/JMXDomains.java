@@ -7,30 +7,31 @@ import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 
-public class JMXDomainsResource implements JMXResource {
+public class JMXDomains implements JMX {
 
-	private Map<String, JMXDomainResource> domains = new HashMap<>();
+	private Map<String, JMXDomain> domains = new HashMap<>();
 
 	@JsonAnyGetter
-	public Map<String, JMXDomainResource> getDomains() {
+	public Map<String, JMXDomain> getDomains() {
 		return domains;
 	}
 
 	@JsonAnySetter
-	public void setDomain(String name, JMXDomainResource value) {
+	public void setDomain(String name, JMXDomain value) {
 		getDomains().put(name, value);
 	}
 	
-	public static class JMXDomainResource implements JMXResource {
-		private Map<String, JMXDomainTypeResource> types = new HashMap<>();
+	public static class JMXDomain implements JMX {
+		
+		private Map<String, JMXDomainType> types = new HashMap<>();
 		
 		@JsonAnyGetter
-		public Map<String, JMXDomainTypeResource> getTypes() {
+		public Map<String, JMXDomainType> getTypes() {
 			return types;
 		}
 
 		@JsonAnySetter
-		public void setType(String name, JMXDomainTypeResource value) {
+		public void setType(String name, JMXDomainType value) {
 			getTypes().put(name, value);
 		}
 		
@@ -40,11 +41,12 @@ public class JMXDomainsResource implements JMXResource {
 		}
 	}
 
-	public static class JMXDomainTypeResource implements JMXResource {
+	public static class JMXDomainType implements JMX {
+		
 		private String desc;
 
-		private Map<String, List<JMXOperationResource>> op;
-		private Map<String, JMXAttributeResource> attr;
+		private Map<String, List<JMXOperation>> op;
+		private Map<String, JMXAttribute> attr;
 
 		public String getDesc() {
 			return desc;
@@ -54,32 +56,33 @@ public class JMXDomainsResource implements JMXResource {
 			this.desc = desc;
 		}
 
-		public Map<String, List<JMXOperationResource>> getOp() {
+		public Map<String, List<JMXOperation>> getOp() {
 			return op;
 		}
 
-		public void setOp(Map<String, List<JMXOperationResource>> op) {
+		public void setOp(Map<String, List<JMXOperation>> op) {
 			this.op = op;
 		}
 
-		public Map<String, JMXAttributeResource> getAttr() {
+		public Map<String, JMXAttribute> getAttr() {
 			return attr;
 		}
 
-		public void setAttr(Map<String, JMXAttributeResource> attr) {
+		public void setAttr(Map<String, JMXAttribute> attr) {
 			this.attr = attr;
 		}
 
 		@Override
 		public String toString() {
-			return "JMXDomainTypeResource [desc=" + desc + ", op=" + op + ", attr=" + attr + "]";
+			return "JMXDomainType [desc=" + desc + ", op=" + op + ", attr=" + attr + "]";
 		}
 	}
 
-	public static class JMXOperationResource {
+	public static class JMXOperation {
+		
 		private String ret;
 		private String desc;
-		private List<JMXOperationArgumentResource> args;
+		private List<JMXOperationArgument> args;
 
 		public String getRet() {
 			return ret;
@@ -97,21 +100,21 @@ public class JMXDomainsResource implements JMXResource {
 			this.desc = desc;
 		}
 
-		public List<JMXOperationArgumentResource> getArgs() {
+		public List<JMXOperationArgument> getArgs() {
 			return args;
 		}
 
-		public void setArgs(List<JMXOperationArgumentResource> args) {
+		public void setArgs(List<JMXOperationArgument> args) {
 			this.args = args;
 		}
 
 		@Override
 		public String toString() {
-			return "JMXOperationResource [ret=" + ret + ", desc=" + desc + ", args=" + args + "]";
+			return "JMXOperation [ret=" + ret + ", desc=" + desc + ", args=" + args + "]";
 		}
 	}
 
-	public static class JMXAttributeResource {
+	public static class JMXAttribute {
 		private String desc;
 		private String type;
 		private boolean rw;
@@ -142,11 +145,12 @@ public class JMXDomainsResource implements JMXResource {
 
 		@Override
 		public String toString() {
-			return "JMXAttributeResource [desc=" + desc + ", type=" + type + ", rw=" + rw + "]";
+			return "JMXAttribute [desc=" + desc + ", type=" + type + ", rw=" + rw + "]";
 		}
 	}
 
-	public static class JMXOperationArgumentResource {
+	public static class JMXOperationArgument {
+		
 		private String desc;
 		private String name;
 		private String type;
@@ -177,13 +181,13 @@ public class JMXDomainsResource implements JMXResource {
 
 		@Override
 		public String toString() {
-			return "JMXOperationArgumentResource [desc=" + desc + ", name=" + name + ", type=" + type + "]";
+			return "JMXOperationArgument [desc=" + desc + ", name=" + name + ", type=" + type + "]";
 		}
 	}
 
 	@Override
 	public String toString() {
-		return "JMXDomainsResource [domains=" + domains + "]";
+		return "JMXDomains [domains=" + domains + "]";
 	}
 
 }
