@@ -35,17 +35,6 @@ public class ActuatorEndpointClientTest {
 			}
 		}
 		{
-			EnvironmentEndpointClient client = new EnvironmentEndpointClient("http://localhost:8888/admin");
-			System.out.println(client.invoke());
-			System.out.println(client.invoke(EnvironmentResource.class));
-			System.out.println(client.getValue("os.version"));
-			System.out.println(client.reset());
-			// System.out.println(client.getValue("XXXX"));
-			System.out.println(client.set(Collections.<String, String> singletonMap("XXXX", "CCCCC")));
-			System.out.println(client.getValue("XXXX"));
-			System.out.println(client.reset());
-		}
-		{
 			HealthEndpointClient client = new HealthEndpointClient("http://localhost:8888/admin");
 			System.out.println(client.invoke());
 		}
@@ -62,6 +51,21 @@ public class ActuatorEndpointClientTest {
 			System.out.println(client.invoke());
 			System.out.println(client.invoke(MetricsResource.class));
 			System.out.println(client.getValue("mem"));
+		}
+		{
+			BeansEndpointClient client = new BeansEndpointClient("http://localhost:8888/admin");
+			System.out.println(client.invoke());
+		}
+		{
+			EnvironmentEndpointClient client = new EnvironmentEndpointClient("http://localhost:8888/admin");
+			System.out.println(client.invoke());
+			System.out.println(client.invoke(EnvironmentResource.class));
+			System.out.println(client.getValue("os.version"));
+			System.out.println(client.reset());
+			// System.out.println(client.getValue("XXXX"));
+			System.out.println(client.set(Collections.<String, String> singletonMap("XXXX", "CCCCC")));
+			System.out.println(client.getValue("XXXX"));
+			System.out.println(client.reset());
 		}
 		{
 			PauseEndpointClient client = new PauseEndpointClient("http://localhost:8888/admin");
