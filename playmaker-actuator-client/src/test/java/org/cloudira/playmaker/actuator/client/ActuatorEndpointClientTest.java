@@ -2,15 +2,21 @@ package org.cloudira.playmaker.actuator.client;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 import org.cloudira.playmaker.actuator.client.resource.EnvironmentResource;
+import org.cloudira.playmaker.actuator.client.resource.JMXDomainsResource;
+import org.cloudira.playmaker.actuator.client.resource.JMXResource;
 import org.cloudira.playmaker.actuator.client.resource.MetricsResource;
 import org.cloudira.playmaker.actuator.client.resource.ThreadInfoResource;
 import org.cloudira.playmaker.actuator.client.resource.TraceResource;
+import org.cloudira.playmaker.actuator.client.resource.JMXDomainsResource.JMXDomainResource;
+import org.cloudira.playmaker.actuator.client.resource.JMXDomainsResource.JMXDomainTypeResource;
+import org.jolokia.client.exception.J4pException;
 
 public class ActuatorEndpointClientTest {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws J4pException {
 		{
 			ActuatorEndpointClient<?> client = new AutoConfigurationEndpointClient("http://localhost:8888/admin");
 			System.out.println(client.invoke());
@@ -55,6 +61,33 @@ public class ActuatorEndpointClientTest {
 		{
 			BeansEndpointClient client = new BeansEndpointClient("http://localhost:8888/admin");
 			System.out.println(client.invoke());
+		}
+		{
+			JolokiaEndpointClient ec = new JolokiaEndpointClient("http://localhost:8888/admin");
+	        JMXResource list = ec.getList();
+	        if (list instanceof JMXDomainsResource) {
+	        	for (Map.Entry<String, JMXDomainResource> entry : ((JMXDomainsResource) list).getDomains().entrySet()) {
+	        		System.out.println(entry);
+	        	}
+	        }
+	        list = ec.getList("JMImplementation");
+	        if (list instanceof JMXDomainResource) {
+	        	for (Map.Entry<String, JMXDomainTypeResource> entry : ((JMXDomainResource) list).getTypes().entrySet()) {
+	        		System.out.println(entry);
+	        	}
+	        }
+	        list = ec.getList("JMImplementation", "type=MBeanServerDelegate");
+	        if (list instanceof JMXDomainResource) {
+	        	for (Map.Entry<String, JMXDomainTypeResource> entry : ((JMXDomainResource) list).getTypes().entrySet()) {
+	        		System.out.println(entry);
+	        	}
+	        }
+	        list = ec.getList("JMImplementation", "type=MBeanServerDelegate");
+	        if (list instanceof JMXDomainResource) {
+	        	for (Map.Entry<String, JMXDomainTypeResource> entry : ((JMXDomainResource) list).getTypes().entrySet()) {
+	        		System.out.println(entry);
+	        	}
+	        }
 		}
 		{
 			EnvironmentEndpointClient client = new EnvironmentEndpointClient("http://localhost:8888/admin");
