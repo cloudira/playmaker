@@ -1,15 +1,15 @@
 package org.cloudira.playmaker.server.rest.resource;
 
-import java.util.List;
+import java.util.Map;
 
-public class ContextResource {
+public class InstanceEnvironmentResource {
 
 	private String name;
 	
 	private boolean open;
 	
-	private List<BeanResource> beans;
-
+	private Map<String, String> properties;
+	
 	public String getName() {
 		return name;
 	}
@@ -26,12 +26,12 @@ public class ContextResource {
 		this.open = open;
 	}
 
-	public List<BeanResource> getBeans() {
-		return beans;
+	public Map<String, String> getProperties() {
+		return properties;
 	}
 
-	public void setBeans(List<BeanResource> beans) {
-		this.beans = beans;
+	public void setProperties(Map<String, String> properties) {
+		this.properties = properties;
 	}
 	
 }

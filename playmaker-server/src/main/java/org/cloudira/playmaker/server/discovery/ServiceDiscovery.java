@@ -26,4 +26,9 @@ public class ServiceDiscovery {
 		return instanceRepository.findOne(instanceId);
 	}
 	
+	public String getAdminUrl(int instanceId) {
+		ServiceInstance si = findServiceInstance(instanceId);
+		return si.getAdminUrl();
+	}
+	
 }

@@ -3,7 +3,7 @@ insert into service(service_id, name, description) values(2, 'bar', 'Bar Aplicat
 
 insert into profile(profile_id, name, description) values(1, 'dev', 'Development Profile');
 
-insert into service_instance(instance_id, service_id, name, host, port) values(1, 1, 'localhost', '127.0.0.1', 8888);
+insert into service_instance(instance_id, service_id, name, host, port, admin_path) values(1, 1, 'localhost', '127.0.0.1', 8888, '/admin');
 
 insert into service_property(service_id, property, value) values(1, 'test1', 'value1');
 insert into service_property(service_id, property, value) values(1, 'test2', 'value2');

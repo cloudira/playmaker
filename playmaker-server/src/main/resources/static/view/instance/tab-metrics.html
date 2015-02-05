@@ -1,0 +1,28 @@
+<div class="row" data-ng-controller="InstanceMetricsController">
+	<div class="col-sm-6">
+		<div class="panel panel-info">
+  			<div class="panel-heading">Counters</div>
+  			<table class="table table-hover">
+  				<tbody>
+  					<tr data-ng-repeat="(key, value) in metrics.counters">
+  						<td>{{key}}</td>
+  						<td>{{value}}</td>
+  					</tr>
+  				</tbody>
+  			</table>
+  		</div>
+	</div>
+	<div class="col-sm-6">
+		<div class="panel panel-info">
+  			<div class="panel-heading">Gauges</div>
+  			<table class="table table-hover">
+  				<tbody>
+  					<tr data-ng-repeat="(key, value) in metrics.gauges">
+  						<td>{{key}}</td>
+  						<td>{{value}}</td>
+  					</tr>
+  				</tbody>
+  			</table>
+  		</div>
+	</div>	
+</div>

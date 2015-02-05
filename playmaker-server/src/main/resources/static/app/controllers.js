@@ -130,12 +130,16 @@
 		$scope.app = ServiceInstance.details({ id: $routeParams.instanceId });
 	};
 	
+	var InstanceMetricsController = function($scope, $routeParams, ServiceInstance) {
+		$scope.metrics = ServiceInstance.metrics({ id: $routeParams.instanceId });
+	};
+	
 	var InstanceEnvironmentController = function($scope, $routeParams, ServiceInstance) {
 		$scope.env = ServiceInstance.env({ id: $routeParams.instanceId });
 	};
 	
 	var InstanceBeansController = function($scope, $routeParams, ServiceInstance) {
-		$scope.ctx = ServiceInstance.beans({ id: $routeParams.instanceId });
+		$scope.contexts = ServiceInstance.beans({ id: $routeParams.instanceId });
 	};
 	
 	var ProfilesController = function($scope, Profile) {
@@ -172,6 +176,7 @@
 	ServicesController.$inject = ['$scope', 'Service'];
 	ServiceInstanceController.$inject = ['$scope', '$routeParams', 'ServiceInstance'];
 	InstanceDetailsController.$inject = ['$scope', '$routeParams', 'ServiceInstance'];
+	InstanceMetricsController.$inject = ['$scope', '$routeParams', 'ServiceInstance'];
 	InstanceEnvironmentController.$inject = ['$scope', '$routeParams', 'ServiceInstance'];
 	InstanceBeansController.$inject = ['$scope', '$routeParams', 'ServiceInstance'];
 	ProfilesController.$inject = ['$scope', 'Profile'];
@@ -182,6 +187,7 @@
 		.controller("ServicesController", ServicesController)
 		.controller("ServiceInstanceController", ServiceInstanceController)
 		.controller("InstanceDetailsController", InstanceDetailsController)
+		.controller("InstanceMetricsController", InstanceMetricsController)
 		.controller("InstanceEnvironmentController", InstanceEnvironmentController)
 		.controller("InstanceBeansController", InstanceBeansController)
 		.controller("ProfilesController", ProfilesController);		

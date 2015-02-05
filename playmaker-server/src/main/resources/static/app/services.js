@@ -13,6 +13,10 @@
 				method: 'GET', 
 				url: '/api/instances/:id/details'
 			},
+			metrics: {
+				method: 'GET',
+				url: 'api/instances/:id/metrics'
+			},
 			env: {
 				method: 'GET',
 				url: 'api/instances/:id/env',
@@ -20,7 +24,8 @@
 			},
 			beans: {
 				method: 'GET', 
-				url: '/api/instances/:id/beans'
+				url: '/api/instances/:id/beans',
+				isArray: true
 			}
 		});
 	};

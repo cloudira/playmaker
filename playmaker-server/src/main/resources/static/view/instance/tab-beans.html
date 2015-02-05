@@ -1,40 +1,22 @@
-<script type="text/ng-template" id="beanTree">
-    <div class="panel panel-default">
-  		<div class="panel-heading">{{ctx.name}}</div>
-  		<table class="table">
-  			<thead>
-  				<tr>
-  					<th>Name</th>
-  					<th>Scope</th>
-  					<th>Dependencies</th>
-  					<th>Bean</th>
-  				</tr>
-  			</thead>
-  			<tbody>
-  				<tr data-ng-repeat="bean in ctx.beans">
-    				<td>{{bean.name}}</td>
-    				<td>{{bean.scope}}</td>
-    				<td>
-						<ul class="list-inline" data-ng-if="bean.dependencies">
+<div class="container-fluid" data-ng-controller="InstanceBeansController">
+	<accordion close-others="false">
+    	<accordion-group data-ng-repeat="ctx in contexts" is-open="ctx.open">
+        	<accordion-heading>
+            	{{ctx.name}} <i class="pull-right glyphicon" data-ng-class="{'glyphicon-chevron-down': res.open, 'glyphicon-chevron-right': !res.open}"></i>
+        	</accordion-heading>
+        	<ul class="list-group">
+				<li class="list-group-item" data-ng-repeat="bean in ctx.beans">
+					<label>Bean:</label> {{bean.name}} <span class="label label-primary">{{bean.scope}}</span><br>
+					<label>Type:</label> {{bean.type}}<br>
+					<label>Resource:</label> {{bean.resource}}<br>
+					<span data-ng-if="bean.dependencies">
+						<label>Dependencies:</label>
+						<ul class="list-inline">
 							<li data-ng-repeat="dependency in bean.dependencies">{{dependency}}</li>
 						</ul>
-					</td>
-    				<td>
-						<label>Type:</label> {{bean.type}}</br>
-						<label>Resource:</label> {{bean.resource}}</br>
-					</td>
-  				</tr>
-  			</tbody>
-  		</table>
-  	</div>
-    <ul style="list-style: none;" data-ng-if="ctx.contexts">
-        <li data-ng-repeat="ctx in ctx.contexts" data-ng-include="'beanTree'">           
-        </li>
-    </ul>
-</script>
-
-<div class="container-fluid" data-ng-controller="InstanceBeansController">
-	<ul class="list-unstyled">
-		<li data-ng-include="'beanTree'"></li>
-	</ul>
+					</span>
+				</li>
+			</ul>
+    	</accordion-group>
+	</accordion>
 </div>
