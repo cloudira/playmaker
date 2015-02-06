@@ -1,20 +1,46 @@
-<div class="container-fluid">
+<div class="container">
 	<div class="page-header">
-		<h3>Service instance: {{serviceInstance.name}}</h3>
+		<a href="/ui/services"><strong>Services</strong></a> /
+		<strong>Service instance: {{serviceInstance.name}}</strong>
     </div>
     
-    <ul class="nav nav-tabs">
-  		<li data-ng-class="{active:isTabSelected(0)}"><a href data-ng-click="selectTab(0)">Application</a></li>
-  		<li data-ng-class="{active:isTabSelected(1)}"><a href data-ng-click="selectTab(1)">Metrics</a></li>
-  		<li data-ng-class="{active:isTabSelected(2)}"><a href data-ng-click="selectTab(2)">Environment</a></li>
-  		<li data-ng-class="{active:isTabSelected(3)}"><a href data-ng-click="selectTab(3)">Configuration</a></li>
-  		<li data-ng-class="{active:isTabSelected(4)}"><a href data-ng-click="selectTab(4)">Threads</a></li>
-  		<li data-ng-class="{active:isTabSelected(5)}"><a href data-ng-click="selectTab(5)">Classpath</a></li>
-  		<li data-ng-class="{active:isTabSelected(6)}"><a href data-ng-click="selectTab(6)">Logging</a></li>
-  		<li data-ng-class="{active:isTabSelected(7)}"><a href data-ng-click="selectTab(7)">Trace</a></li>
-  		<li data-ng-class="{active:isTabSelected(8)}"><a href data-ng-click="selectTab(8)">Beans</a></li>
-  		<li data-ng-class="{active:isTabSelected(9)}"><a href data-ng-click="selectTab(9)">Mapping</a></li>
-	</ul>
-	
-	<div class="tab-content" style="padding-top: 20px" data-ng-include src="includeTab()"></div>
+    <div class="row">
+    	<div class="col-sm-10">
+    		<div class="tab-content" data-ng-include src="includeTab()"></div>
+    	</div>
+    	<div class="col-sm-2">
+    		<div class="btn-group-vertical pull-right" role="group" aria-label="...">
+  				<button class="btn btn-sm btn-default" data-ng-class="{active:isTabSelected(0)}" data-ng-click="selectTab(0)">
+  					<span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> Application
+  				</button>
+  				<button class="btn btn-sm btn-default" data-ng-class="{active:isTabSelected(1)}" data-ng-click="selectTab(1)">
+  					<span class="glyphicon glyphicon-stats" aria-hidden="true"></span> Metrics
+  				</button>
+  				<button class="btn btn-sm btn-default" data-ng-class="{active:isTabSelected(2)}" data-ng-click="selectTab(2)">
+  					<span class="glyphicon glyphicon-cloud" aria-hidden="true"></span> Environment
+  				</button>
+  				<button class="btn btn-sm btn-default" data-ng-class="{active:isTabSelected(3)}" data-ng-click="selectTab(3)">
+  					<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Configuration
+  				</button>
+  				<button class="btn btn-sm btn-default" data-ng-class="{active:isTabSelected(4)}" data-ng-click="selectTab(4)">
+  					<span class="glyphicon glyphicon-tasks" aria-hidden="true"></span> Threads
+  				</button>
+  				<button class="btn btn-sm btn-default" data-ng-class="{active:isTabSelected(5)}" data-ng-click="selectTab(5)">
+  					<span class="glyphicon glyphicon-link" aria-hidden="true"></span> Classpath
+  				</button>
+  				<button class="btn btn-sm btn-default" data-ng-class="{active:isTabSelected(6)}" data-ng-click="selectTab(6)">
+  					<span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> Logging
+  				</button>
+  				<button class="btn btn-sm btn-default" data-ng-class="{active:isTabSelected(7)}" data-ng-click="selectTab(7)">
+  					<span class="glyphicon glyphicon-transfer" aria-hidden="true"></span> Trace
+  				</button>
+  				<button class="btn btn-sm btn-default" data-ng-class="{active:isTabSelected(8)}" data-ng-click="selectTab(8)">
+  					<span class="glyphicon glyphicon-leaf" aria-hidden="true"></span> Beans
+  				</button>
+  				<button class="btn btn-sm btn-default" data-ng-class="{active:isTabSelected(9)}" data-ng-click="selectTab(9)">
+  					<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span> Mapping
+  				</button>
+			</div>
+    	</div>
+    </div>
 </div>

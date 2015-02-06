@@ -7,7 +7,7 @@
 			})
 			.when('/ui/services/:serviceId', {
 				templateUrl: '/view/service.html',
-				controller: 'ServicesController'
+				controller: 'ServiceController'
 			})
 			.when('/ui/instances/:instanceId', {
 				templateUrl: '/view/service-instance.html',
@@ -73,6 +73,25 @@
 				$scope.services.splice($scope.services.indexOf(service), 1);
 			});
 		};
+	};
+	
+	var ServiceController = function($scope, $routeParams, Service) {
+		$scope.service = Service.get({ id: $routeParams.serviceId });
+		
+		$scope.tab = 0;
+		
+		$scope.selectTab = function(setTab) {
+			this.tab = setTab;
+		};
+		
+		$scope.isTabSelected = function(checkTab) {
+			return this.tab === checkTab;
+		};
+		
+		$scope.updateService = function(service) {
+			service.$update();
+		};
+		
 	};
 	
 	var ServiceInstanceController = function($scope, $routeParams, ServiceInstance) {
@@ -174,6 +193,7 @@
 	ApplicationRouter.$inject = ['$routeProvider', '$locationProvider'];
 	MenuController.$inject = ['$scope'];
 	ServicesController.$inject = ['$scope', 'Service'];
+	ServiceController.$inject = ['$scope', '$routeParams', 'Service'];
 	ServiceInstanceController.$inject = ['$scope', '$routeParams', 'ServiceInstance'];
 	InstanceDetailsController.$inject = ['$scope', '$routeParams', 'ServiceInstance'];
 	InstanceMetricsController.$inject = ['$scope', '$routeParams', 'ServiceInstance'];
@@ -185,6 +205,7 @@
 		.config(ApplicationRouter)
 		.controller("MenuController", MenuController)
 		.controller("ServicesController", ServicesController)
+		.controller("ServiceController", ServiceController)
 		.controller("ServiceInstanceController", ServiceInstanceController)
 		.controller("InstanceDetailsController", InstanceDetailsController)
 		.controller("InstanceMetricsController", InstanceMetricsController)

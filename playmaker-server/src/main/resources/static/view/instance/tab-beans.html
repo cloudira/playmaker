@@ -6,7 +6,7 @@
         	</accordion-heading>
         	<ul class="list-group">
 				<li class="list-group-item" data-ng-repeat="bean in ctx.beans">
-					<label>Bean:</label> {{bean.name}} <span class="label label-primary">{{bean.scope}}</span><br>
+					<label>Beans:</label> {{bean.name}} <span class="label label-primary">{{bean.scope}}</span><br>
 					<label>Type:</label> {{bean.type}}<br>
 					<label>Resource:</label> {{bean.resource}}<br>
 					<span data-ng-if="bean.dependencies">
