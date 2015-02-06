@@ -31,6 +31,9 @@ public class ServiceInstance {
 	@Column(name = "port")
 	private int port;
 	
+	@Column(name = "admin_path")
+	private String adminPath;
+	
 	public int getId() {
 		return id;
 	}
@@ -69,6 +72,19 @@ public class ServiceInstance {
 
 	public void setPort(int port) {
 		this.port = port;
+	}
+	
+	public String getAdminPath() {
+		return adminPath;
+	}
+	
+	public void setAdminPath(String adminPath) {
+		this.adminPath = adminPath;
+	}
+	
+	public String getAdminUrl() {
+		//TODO use UriComponentsBuilder here
+		return "http://" + host + ":" + port + adminPath;
 	}
 	
 }

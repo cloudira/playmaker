@@ -6,7 +6,7 @@ public class ContextResource {
 
 	private String name;
 	
-	private List<ContextResource> contexts;
+	private boolean open;
 	
 	private List<BeanResource> beans;
 
@@ -17,13 +17,13 @@ public class ContextResource {
 	public void setName(String name) {
 		this.name = name;
 	}
-
-	public List<ContextResource> getContexts() {
-		return contexts;
+	
+	public boolean isOpen() {
+		return open;
 	}
-
-	public void setContexts(List<ContextResource> contexts) {
-		this.contexts = contexts;
+	
+	public void setOpen(boolean open) {
+		this.open = open;
 	}
 
 	public List<BeanResource> getBeans() {
