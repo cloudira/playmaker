@@ -36,6 +36,7 @@ public class ContextBeans {
 		private String bean;
 		private String scope;
 		private String type;
+		private String resource;
 		private List<String> dependencies;
 
 		public String getBean() {
@@ -61,6 +62,14 @@ public class ContextBeans {
 		public void setType(String type) {
 			this.type = type;
 		}
+		
+		public String getResource() {
+			return resource;
+		}
+		
+		public void setResource(String resource) {
+			this.resource = resource;
+		}
 
 		public List<String> getDependencies() {
 			return dependencies;
@@ -72,7 +81,7 @@ public class ContextBeans {
 
 		@Override
 		public String toString() {
-			return "Bean [bean=" + bean + ", scope=" + scope + ", type=" + type + ", dependencies=" + dependencies + "]";
+			return "Bean [bean=" + bean + ", scope=" + scope + ", type=" + type + ", resource=" + resource + ", dependencies=" + dependencies + "]";
 		}
 	}
 
