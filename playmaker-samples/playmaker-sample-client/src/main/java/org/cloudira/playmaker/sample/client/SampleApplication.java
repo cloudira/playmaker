@@ -30,7 +30,6 @@ public class SampleApplication implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 		log.debug("Local instance: {}", discoveryClient.getLocalServiceInstance());
 		log.debug("All services: {}", discoveryClient.getServices());
-		log.debug("All instances: {}", discoveryClient.getAllInstances());
 		log.debug("All instances of local service: {}", discoveryClient.getInstances(discoveryClient.getLocalServiceInstance().getServiceId()));
 	}
 

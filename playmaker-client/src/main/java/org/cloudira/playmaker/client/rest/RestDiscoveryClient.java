@@ -1,5 +1,6 @@
 package org.cloudira.playmaker.client.rest;
 
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -99,8 +100,7 @@ public class RestDiscoveryClient implements DiscoveryClient, Runnable {
 		
 		return Collections.emptyList();
 	}
-
-	@Override
+	
 	public List<ServiceInstance> getAllInstances() {
 		log.debug("getAllInstances()");
 		
@@ -157,6 +157,17 @@ public class RestDiscoveryClient implements DiscoveryClient, Runnable {
 		@Override
 		public int getPort() {
 			return instance.getPort();
+		}
+
+		@Override
+		public boolean isSecure() {
+			return false;
+		}
+
+		@Override
+		public URI getUri() {
+			String uri = String.format("http%s://%s:%s", (isSecure() ? "s" : ""), getHost(), getPort());
+			return URI.create(uri);
 		}
 		
 	}

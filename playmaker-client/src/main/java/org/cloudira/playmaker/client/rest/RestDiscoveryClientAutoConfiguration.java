@@ -44,7 +44,7 @@ public class RestDiscoveryClientAutoConfiguration extends AbstractDiscoveryLifec
 		}
 		int port = findPort();
 		this.serviceInstance = new DefaultServiceInstance(getEnvironment().getProperty(
-				"spring.application.name", "application"), host, port);
+				"spring.application.name", "application"), host, port, false);
 	}
 
 	private int findPort() {
