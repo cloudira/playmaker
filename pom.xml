@@ -57,7 +57,6 @@
 		<module>playmaker-server</module>
 		<module>playmaker-client</module>
 		<module>playmaker-samples</module>
-		<module>playmaker-starter-client</module>
 	</modules>
 
 	<build>
