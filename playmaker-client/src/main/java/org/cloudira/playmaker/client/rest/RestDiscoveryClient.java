@@ -12,20 +12,20 @@ import java.util.concurrent.TimeUnit;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 
-import lombok.Data;
-import lombok.extern.slf4j.Slf4j;
-
 import org.cloudira.playmaker.client.rest.resource.InstanceResource;
 import org.cloudira.playmaker.client.rest.resource.ServiceDetailsResource;
 import org.cloudira.playmaker.client.rest.resource.ServiceResource;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.client.RestTemplate;
 
-@Slf4j
 public class RestDiscoveryClient implements DiscoveryClient, Runnable {
+	
+	protected static final Logger log = LoggerFactory.getLogger(RestDiscoveryClient.class);
 	
 	public static final String DESCRIPTION = "Cloudira PlayMaker REST Discovery Client";
 	
@@ -133,7 +133,6 @@ public class RestDiscoveryClient implements DiscoveryClient, Runnable {
 		return restTemplate.getForObject(configuration.getUri() + "/services/{serviceId}", ServiceDetailsResource.class, serviceId);
 	}
 	
-	@Data
 	static class RestServiceInstance implements ServiceInstance {
 		
 		private ServiceResource service;
@@ -142,6 +141,14 @@ public class RestDiscoveryClient implements DiscoveryClient, Runnable {
 		RestServiceInstance(ServiceResource service, InstanceResource instance) {
 			this.service = service;
 			this.instance = instance;
+		}
+		
+		public ServiceResource getService() {
+			return service;
+		}
+		
+		public InstanceResource getInstance() {
+			return instance;
 		}
 
 		@Override
@@ -168,6 +175,23 @@ public class RestDiscoveryClient implements DiscoveryClient, Runnable {
 		public URI getUri() {
 			String uri = String.format("http%s://%s:%s", (isSecure() ? "s" : ""), getHost(), getPort());
 			return URI.create(uri);
+		}
+
+		@Override
+		public String toString() {
+			StringBuilder builder = new StringBuilder();
+			builder.append("RestServiceInstance [");
+			if (service != null) {
+				builder.append("service=");
+				builder.append(service);
+				builder.append(", ");
+			}
+			if (instance != null) {
+				builder.append("instance=");
+				builder.append(instance);
+			}
+			builder.append("]");
+			return builder.toString();
 		}
 		
 	}

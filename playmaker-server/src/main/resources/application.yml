@@ -1,7 +1,7 @@
 info:
-  groupId: @groupId@
-  artifactId: @artifactId@
-  version: @version@
+  groupId: "@groupId@"
+  artifactId: "@artifactId@"
+  version: "@version@"
 
 server:
   port: 8888

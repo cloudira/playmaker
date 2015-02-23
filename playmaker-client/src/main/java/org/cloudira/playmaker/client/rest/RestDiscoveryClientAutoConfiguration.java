@@ -6,8 +6,8 @@ import java.text.SimpleDateFormat;
 
 import javax.annotation.PostConstruct;
 
-import lombok.extern.slf4j.Slf4j;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.web.ServerProperties;
@@ -28,8 +28,9 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 @Configuration
 @EnableConfigurationProperties({ServerProperties.class, RestDiscoveryClientConfiguration.class})
 @ConditionalOnMissingBean(DiscoveryClient.class)
-@Slf4j
 public class RestDiscoveryClientAutoConfiguration extends AbstractDiscoveryLifecycle {
+	
+	protected static final Logger log = LoggerFactory.getLogger(RestDiscoveryClientAutoConfiguration.class);
 
 	private DefaultServiceInstance serviceInstance;
 

@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Bean;
 @EnableConfigServer
 public class PlayMakerApplication {
 	
-	@Bean(name = "EnvironmentRepository")
+	@Bean
 	public EnvironmentRepository environmentRepository(ServiceRepository serviceRepository) {
 		return new PlayMakerEnvironmentRepository(serviceRepository);
 	}
