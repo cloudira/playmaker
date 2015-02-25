@@ -3,9 +3,9 @@ package org.cloudira.playmaker.server;
 import org.cloudira.playmaker.server.domain.Service;
 import org.cloudira.playmaker.server.domain.ServiceProfile;
 import org.cloudira.playmaker.server.repository.ServiceRepository;
-import org.springframework.cloud.config.Environment;
-import org.springframework.cloud.config.PropertySource;
-import org.springframework.cloud.config.server.EnvironmentRepository;
+import org.springframework.cloud.configure.Environment;
+import org.springframework.cloud.configure.PropertySource;
+import org.springframework.cloud.configure.server.EnvironmentRepository;
 
 public class PlayMakerEnvironmentRepository implements EnvironmentRepository {
 	
