@@ -1,0 +1,17 @@
+info:
+  groupId: @groupId@
+  artifactId: @artifactId@
+  version: @version@
+endpoints:
+  restart:
+    enabled: true
+logging:
+  level:
+    org.cloudira: TRACE
+    org.springframework.boot.env.PropertySourcesLoader: TRACE
+    org.springframework.web: DEBUG
+    
+spring:
+  jackson:
+    serialization:
+      INDENT_OUTPUT: true
