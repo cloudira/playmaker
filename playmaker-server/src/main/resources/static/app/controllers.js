@@ -9,6 +9,14 @@
 				templateUrl: '/view/service.html',
 				controller: 'ServiceController'
 			})
+			.when('/ui/services/:serviceId/config/:profileName/:itemId?', {
+				templateUrl: '/view/service-config.html',
+				controller: 'ServiceConfigController'
+			})
+			.when('/ui/services/:serviceId/settings', {
+				templateUrl: '/view/service-edit.html',
+				controller: 'ServiceEditController'
+			})
 			.when('/ui/instances/:instanceId', {
 				templateUrl: '/view/service-instance.html',
 				controller: 'ServiceInstanceController'
@@ -53,16 +61,25 @@
 			return $scope.service.id === serviceId;
 		};
 		
-		$scope.addService = function(name, description) {
-			new Service({
-				name: name,
-				description: description
-			}).$save(function(service) {
-				$scope.services.push(service);
+		$scope.createService = function() {
+			$scope.newService = new Service({
+				name: null,
+				description: null
 			});
-			
-			$scope.newService = "";
 		};
+		
+		$scope.addService = function(newService) {
+			$scope.services.push(newService);
+			//newService.$save(function(service) {
+			//	$scope.services.push(service);
+			//});
+			
+			$scope.newService = null;
+		};
+		
+		$scope.cancelService = function() {
+			$scope.newService = null;
+		}
 		
 		$scope.updateService = function(service) {
 			service.$update();
@@ -76,13 +93,107 @@
 	};
 	
 	var ServiceController = function($scope, $routeParams, Service) {
-		$scope.service = Service.get({ id: $routeParams.serviceId });
+		$scope.service = Service.get({
+			id: $routeParams.serviceId
+		});
 		
 		$scope.tab = 0;
 		
-		$scope.selectTab = function(setTab) {
-			this.tab = setTab;
+		$scope.isTabSelected = function(checkTab) {
+			return this.tab === checkTab;
 		};
+		
+	};
+	
+	var ServiceConfigController = function($scope, $routeParams, Service, ServiceProperty, Profile) {
+		$scope.service = Service.get({ id: $routeParams.serviceId });
+		
+		if ($routeParams.itemId == null) {
+			$scope.config = Service.config({ id: $routeParams.serviceId, profileName: $routeParams.profileName })
+		} else {
+			$scope.config = Service.config({ id: $routeParams.serviceId, profileName: $routeParams.profileName, itemId: $routeParams.itemId })
+		}
+		
+		Profile.query(function(response) {
+			$scope.profiles = response ? response : [];
+		});
+		
+		$scope.tab = 1;
+		
+		$scope.isTabSelected = function(checkTab) {
+			return this.tab === checkTab;
+		};
+		
+		$scope.createProfile = function() {
+			$scope.newProfile = new Profile({
+				name: null,
+				description: null
+			});
+		};
+		
+		$scope.addProfile = function(newProfile) {
+			newProfile.$save(function(profile) {
+				$scope.profiles.push(profile);
+			});
+			
+			$scope.newProfile = null;
+		};
+		
+		$scope.cancelProfile = function() {
+			$scope.newProfile = null;
+		}
+		
+		$scope.createProperty = function() {
+			$scope.newProperty = new ServiceProperty({
+				type: 'property',
+				name: null,
+				value: null
+			});
+		};
+		
+		$scope.addProperty = function(newProperty) {
+			var data = {
+				serviceId: $scope.service.id,
+				profileName: $scope.config.profile,
+				id: $scope.config.item.id
+			};
+			
+			newProperty.$save(data, function(property) {
+				var newConfig = Service.config({ id: data.serviceId, profileName: data.profileName, itemId: data.id });
+				$scope.config = newConfig;
+			});
+			$scope.newProperty = null;
+		};
+		
+		$scope.cancelProperty = function() {
+			$scope.newProperty = null;
+		};
+		
+		$scope.updateProperty = function() {
+			var data = {
+				serviceId: $scope.service.id,
+				profileName: $scope.config.profile,
+				id: $scope.config.item.id
+			};
+			
+			property = new ServiceProperty({
+				type: 'property',
+				name: $scope.config.item.name,
+				value: $scope.config.item.value
+			});
+			
+			property.$update(data, function(resp) {
+				//var newConfig = Service.config({ id: data.serviceId, profileName: data.profileName, itemId: data.id });
+				//$scope.config = newConfig;
+			});
+		};
+		
+	};
+	
+	var ServiceEditController = function($scope, $routeParams, Service) {
+		$scope.service = Service.get({ id: $routeParams.serviceId });
+		
+		$scope.tab = 2;
 		
 		$scope.isTabSelected = function(checkTab) {
 			return this.tab === checkTab;
@@ -194,6 +305,8 @@
 	MenuController.$inject = ['$scope'];
 	ServicesController.$inject = ['$scope', 'Service'];
 	ServiceController.$inject = ['$scope', '$routeParams', 'Service'];
+	ServiceConfigController.$inject = ['$scope', '$routeParams', 'Service', 'ServiceProperty', 'Profile'];
+	ServiceEditController.$inject = ['$scope', '$routeParams', 'Service'];
 	ServiceInstanceController.$inject = ['$scope', '$routeParams', 'ServiceInstance'];
 	InstanceDetailsController.$inject = ['$scope', '$routeParams', 'ServiceInstance'];
 	InstanceMetricsController.$inject = ['$scope', '$routeParams', 'ServiceInstance'];
@@ -206,6 +319,8 @@
 		.controller("MenuController", MenuController)
 		.controller("ServicesController", ServicesController)
 		.controller("ServiceController", ServiceController)
+		.controller("ServiceConfigController", ServiceConfigController)
+		.controller("ServiceEditController", ServiceEditController)
 		.controller("ServiceInstanceController", ServiceInstanceController)
 		.controller("InstanceDetailsController", InstanceDetailsController)
 		.controller("InstanceMetricsController", InstanceMetricsController)

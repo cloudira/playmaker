@@ -5,4 +5,6 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface ProfileRepository extends CrudRepository<Profile, Integer> {
 
+	public Profile findByName(String name);
+	
 }

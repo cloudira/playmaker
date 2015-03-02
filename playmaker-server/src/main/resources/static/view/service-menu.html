@@ -1,0 +1,11 @@
+<div class="btn-group-vertical pull-right" role="group" aria-label="...">
+	<a data-ng-href="/ui/services/{{service.id}}" class="btn btn-sm btn-default" data-ng-class="{active:isTabSelected(0)}">
+		<span class="glyphicon glyphicon-leaf" aria-hidden="true"></span> Instances
+	</a>
+	<a data-ng-href="/ui/services/{{service.id}}/config/default" class="btn btn-sm btn-default" data-ng-class="{active:isTabSelected(1)}">
+		<span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Configuration
+  	</a>
+	<a data-ng-href="/ui/services/{{service.id}}/settings" class="btn btn-sm btn-default" data-ng-class="{active:isTabSelected(2)}">
+		<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Settings
+	</a>
+</div>

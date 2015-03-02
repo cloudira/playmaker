@@ -1,0 +1,135 @@
+<div class="container">
+	<div class="page-header">
+		<a href="/ui/services"><strong>Services</strong></a> / <label>{{service.name}}</label>
+    </div>
+    <p>{{service.description}}</p>
+    <div class="row">
+    	<div class="col-sm-10">
+    		<ol class="breadcrumb">
+    			<div class="btn-group" dropdown>
+    				<a class="btn btn-default btn-sm" data-ng-href="/ui/services/{{service.id}}/config/{{config.profile}}" role="button">{{config.profile}}</a>
+      				<button type="button" class="btn btn-default btn-sm dropdown-toggle" dropdown-toggle>
+        				<span class="caret"></span>
+        				<span class="sr-only">Split button!</span>
+      				</button>
+      				<ul class="dropdown-menu" role="menu">
+        				<li data-ng-repeat="profile in profiles"><a href="/ui/services/{{service.id}}/config/{{profile.name}}">{{profile.name}}</a></li>
+        				<li class="divider"></li>
+        				<li><a href data-ng-click="createProfile()">Add profile...</a></li>
+      				</ul>
+    			</div>
+				<li class="divider"></li>
+				<li data-ng-repeat="item in config.path">
+					<a data-ng-href="/ui/services/{{service.id}}/config/{{config.profile}}/{{item.id}}">{{item.name}}</a>
+				</li>
+				<li data-ng-show="config.item.type == 'map'">
+					<a href data-ng-click="createProperty()"><i class="glyphicon glyphicon-plus" popover="Add property" popover-trigger="mouseenter" popover-placement="right"></i></a>
+				</li>
+			</ol>
+			
+			<div class="panel panel-default" data-ng-show="newProfile">
+  				<div class="panel-heading">Add profile</div>
+  				<div class="panel-body">
+					<form class="form-horizontal">
+						<div class="form-group">
+    						<label for="description" class="col-sm-2 control-label">Name</label>
+    						<div class="col-sm-4">
+      							<input class="form-control" placeholder="Profile name" data-ng-model="newProfile.name">
+    						</div>
+  						</div>
+  						<div class="form-group">
+    						<label for="description" class="col-sm-2 control-label">Description</label>
+    						<div class="col-sm-10">
+      							<input class="form-control" placeholder="Profile description" data-ng-model="newProfile.description">
+    						</div>
+  						</div>
+						<div class="form-group">
+    						<div class="col-sm-offset-2 col-sm-10">
+      							<button class="btn btn-success" data-ng-click="addProfile(newProfile)">Create profile</button>
+      							<button class="btn btn-default" type="reset" data-ng-click="cancelProfile()">Cancel</button>
+    						</div>
+  						</div>
+					</form>
+				</div>
+			</div>
+			
+			<div class="panel panel-default" data-ng-show="newProperty">
+  				<div class="panel-heading">Add property</div>
+  				<div class="panel-body">
+					<form class="form-horizontal">
+						<div class="form-group">
+    						<label for="description" class="col-sm-2 control-label">Name</label>
+    						<div class="col-sm-4">
+      							<input class="form-control" placeholder="Property name" data-ng-model="newProperty.name">
+    						</div>
+  						</div>
+  						<div class="form-group" data-ng-show="newProperty.type == 'property'">
+    						<label for="description" class="col-sm-2 control-label">Value</label>
+    						<div class="col-sm-10">
+      							<input class="form-control" placeholder="Property value" data-ng-model="newProperty.value">
+    						</div>
+  						</div>
+  						<div class="form-group">
+    						<div class="col-sm-offset-2 col-sm-10">
+      							<div class="checkbox">
+        							<label>
+          								<input type="checkbox" data-ng-model="newProperty.type" data-ng-true-value="map" data-ng-false-value="property"> Is Map?
+        							</label>
+      							</div>
+    						</div>
+  						</div>
+  						<div class="form-group">
+    						<div class="col-sm-offset-2 col-sm-10">
+      							<button class="btn btn-success" data-ng-click="addProperty(newProperty)">Create property</button>
+      							<button class="btn btn-default" type="reset" data-ng-click="cancelProperty()">Cancel</button>
+    						</div>
+  						</div>
+					</form>
+				</div>
+			</div>
+				
+			<div class="panel panel-info" data-ng-show="!newProfile">
+				<div class="panel-heading">
+					/ {{config.item.name}} <a href="#" class="pull-right"><i class="glyphicon glyphicon-trash" popover="Delete {{config.item.type}}" popover-trigger="mouseenter" popover-placement="right"></i></a>
+				</div>
+				<div class="panel-body" data-ng-show="config.item.type == 'property'">
+					<form class="form-horizontal">
+  						<div class="form-group">
+    						<div class="col-sm-12">
+    							<textarea rows="4" class="col-sm-12" data-ng-model="config.item.value"></textarea>
+    						</div>
+  						</div>
+  						<div class="form-group">
+    						<div class="col-sm-12">
+      							<button class="btn btn-success" data-ng-click="updateProperty()">Save value</button>
+    						</div>
+  						</div>
+					</form>
+				</div>
+				<table class="table" data-ng-show="config.item.type == 'map'">
+					<colgroup>
+						<col class="col-md-4">
+            			<col class="col-md-8">
+					</colgroup>
+					<thead>
+						<tr>
+							<th>Name</th>
+							<th>Value</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr data-ng-repeat="map in config.item.maps">
+							<td><span class="glyphicon glyphicon-folder-close"></span> <a data-ng-href="/ui/services/{{service.id}}/config/{{config.profile}}/{{map.id}}">{{map.name}}</a></td>
+							<td></td>
+						</tr>
+						<tr data-ng-repeat="prop in config.item.properties">
+							<td><span class="glyphicon glyphicon-file"></span> <a data-ng-href="/ui/services/{{service.id}}/config/{{config.profile}}/{{prop.id}}">{{prop.name}}</a></td>
+							<td>{{prop.value}}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>	
+    	</div>
+  		<div class="col-sm-2" data-ng-include="'/view/service-menu.html'"></div>
+  	</div>
+</div>

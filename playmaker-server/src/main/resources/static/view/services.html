@@ -3,13 +3,40 @@
 		<div class="row">
   			<div class="col-sm-3"><strong>Services</strong></div>
   			<div class="col-sm-9">
-  				<button type="button" class="btn btn-success btn-sm pull-right">
+  				<button type="button" class="btn btn-success btn-sm pull-right" data-ng-click="createService()" data-ng-show="!newService">
     				<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Create service
     			</button>
   			</div>
   		</div>
     </div>
-    <div class="panel panel-info">
+    <div class="panel panel-default" data-ng-show="newService">
+    	<div class="panel-heading">
+	  		<i class="glyphicon glyphicon-tasks"></i> Create new service
+	  	</div>
+  		<div class="panel-body">
+			<form class="form-horizontal" data-ng-submit="addService(newService)">
+				<div class="form-group">
+    				<label for="description" class="col-sm-2 control-label">Name</label>
+    				<div class="col-sm-4">
+      					<input class="form-control" placeholder="Service name" data-ng-model="newService.name">
+    				</div>
+  				</div>
+  				<div class="form-group">
+    				<label for="description" class="col-sm-2 control-label">Description</label>
+    				<div class="col-sm-10">
+      					<input class="form-control" placeholder="Service description" data-ng-model="newService.description">
+    				</div>
+  				</div>
+				<div class="form-group">
+    				<div class="col-sm-offset-2 col-sm-10">
+      					<button class="btn btn-primary" type="submit">Submit</button>
+      					<button class="btn btn-default" type="reset" data-ng-click="cancelService()">Cancel</button>
+    				</div>
+  				</div>
+			</form>
+		</div>
+	</div>
+    <div class="panel panel-info" data-ng-show="!newService">
 	  	<div class="panel-heading">
 	  		<i class="glyphicon glyphicon-tasks"></i> Services
 	  	</div>
