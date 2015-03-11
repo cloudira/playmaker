@@ -1,23 +1,58 @@
 <div class="container">
 	<div class="page-header">
-		<h3>Profiles</h3>
+		<div class="row">
+  			<div class="col-sm-3"><strong>Profiles</strong></div>
+  			<div class="col-sm-9">
+  				<button type="button" class="btn btn-success btn-sm pull-right" data-ng-click="createProfile()" data-ng-show="!newProfile">
+    				<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Create profile
+    			</button>
+  			</div>
+  		</div>
+    </div>
+    <div class="panel panel-default" data-ng-show="newProfile">
+    	<div class="panel-heading">
+	  		<i class="glyphicon glyphicon-tasks"></i> Create new profile
+	  	</div>
+  		<div class="panel-body">
+			<form class="form-horizontal" data-ng-submit="addProfile(newProfile)">
+				<div class="form-group">
+    				<label for="description" class="col-sm-2 control-label">Name</label>
+    				<div class="col-sm-4">
+      					<input class="form-control" placeholder="Profile name" data-ng-model="newProfile.name">
+    				</div>
+  				</div>
+  				<div class="form-group">
+    				<label for="description" class="col-sm-2 control-label">Description</label>
+    				<div class="col-sm-10">
+      					<input class="form-control" placeholder="Profile description" data-ng-model="newProfile.description">
+    				</div>
+  				</div>
+				<div class="form-group">
+    				<div class="col-sm-offset-2 col-sm-10">
+      					<button class="btn btn-primary" type="submit">Submit</button>
+      					<button class="btn btn-default" type="reset" data-ng-click="cancelProfile()">Cancel</button>
+    				</div>
+  				</div>
+			</form>
+		</div>
 	</div>
-	
-	<button class="btn btn-primary" type="button">Add profile</button>
-	
-	<table class="table table-hover">
-		<thead>
-			<tr>
-				<th>Name</th>
-				<th>Description</th>
-			</tr>
-		</thead>
-		<tbody>
-  			<tr data-ng-repeat="profile in profiles" data-ng-click='editProfile(profile.id)'>
-    			<td>{{profile.name}}</td>
-    			<td>{{profile.description}}</td>
-  			</tr>
-  		</tbody>
-	</table>
-	
+	<div class="panel panel-info" data-ng-show="!newProfile">
+	  	<div class="panel-heading">
+	  		<i class="glyphicon glyphicon-tasks"></i> Profile
+	  	</div>
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Description</th>
+				</tr>
+			</thead>
+			<tbody>
+	  			<tr data-ng-repeat="profile in profiles">
+	    			<td><a href="/ui/profiles/{{profile.id}}">{{profile.name}}</a></td>
+	    			<td>{{profile.description}}</td>
+	  			</tr>
+	  		</tbody>
+		</table>
+	</div>
 </div>

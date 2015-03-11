@@ -277,18 +277,25 @@
 			$scope.profiles = response ? response : [];
 		});
 		
-		$scope.addProfile = function(name, description) {
-			new Profile(
-			{
-				name: name,
-				description: description
-			}
-			).$save(function(profile) {
-				$scope.profiles.push(profile);
+		$scope.createProfile = function() {
+			$scope.newProfile = new Profile({
+				name: null,
+				description: null
 			});
-			
-			$scope.newService = "";
 		};
+		
+		$scope.addProfile = function(newProfile) {
+			$scope.profiles.push(newProfile);
+			//newService.$save(function(service) {
+			//	$scope.services.push(service);
+			//});
+			
+			$scope.newProfile = null;
+		};
+		
+		$scope.cancelProfile = function() {
+			$scope.newProfile = null;
+		}
 		
 		$scope.updateProfile = function(profile) {
 			profile.$update();

@@ -1,21 +1,14 @@
 package org.cloudira.playmaker.server.domain;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.persistence.CascadeType;
-import javax.persistence.CollectionTable;
 import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.MapKeyColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -37,15 +30,6 @@ public class Service {
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "service")
 	private List<ServiceInstance> instances = new ArrayList<ServiceInstance>();
 	
-	@ElementCollection(fetch = FetchType.EAGER)
-	@MapKeyColumn(name = "property")
-	@Column(name = "value")
-	@CollectionTable(name = "service_property", joinColumns = @JoinColumn(name = "service_id"))
-	private Map<String, String> properties = new HashMap<String, String>();
-	
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "service")
-	private List<ServiceProfile> profiles = new ArrayList<ServiceProfile>();
-
 	public int getId() {
 		return id;
 	}
@@ -78,22 +62,6 @@ public class Service {
 		this.instances = instances;
 	}
 	
-	public Map<String, String> getProperties() {
-		return properties;
-	}
-	
-	public void setProperties(Map<String, String> properties) {
-		this.properties = properties;
-	}
-	
-	public List<ServiceProfile> getProfiles() {
-		return profiles;
-	}
-	
-	public void setProfiles(List<ServiceProfile> profiles) {
-		this.profiles = profiles;
-	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
